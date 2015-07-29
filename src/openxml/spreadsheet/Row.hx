@@ -34,7 +34,10 @@ class Row implements IXml
 		
 		cells.sort(function(c1, c2) return c1.col - c2.col);
 		for (cell in cells)
-			xr.addChild(cell.toXml());
+		{
+			var xc = cell.toXml();
+			if (xc != null) xr.addChild(xc);
+		}
 		
 		return xr;
 	}

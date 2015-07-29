@@ -21,8 +21,15 @@ class Cell implements IXml
 		address = A1Reference.create(row, col);
 	}
 	
+	public function clearContent()
+	{
+		content = null;
+	}
+	
 	public function toXml():Xml 
 	{
+		if (content == null) return null;
+		
 		var c = Xml.createElement('c');
 		c.set('r', address);
 		
