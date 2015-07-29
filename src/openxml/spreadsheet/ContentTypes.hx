@@ -57,6 +57,7 @@ abstract ContentType(String) to String
 	var CTWorksheet = "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml";
 	var CTCoreProperties = "application/vnd.openxmlformats-package.core-properties+xml";
 	var CTExtendedProperties = "application/vnd.openxmlformats-officedocument.extended-properties+xml";
+	var CTSharedStrings = "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml";
 	
 	//<Override PartName="/xl/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>
 	//<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>	

@@ -32,12 +32,10 @@ class Row implements IXml
 		var xr = Xml.createElement('row');
 		xr.set('r', Std.string(row + 1));
 		
+		cells.sort(function(c1, c2) return c1.col - c2.col);
 		for (cell in cells)
 			xr.addChild(cell.toXml());
 		
 		return xr;
 	}
-	
-	
-	
 }

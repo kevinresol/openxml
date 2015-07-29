@@ -29,20 +29,40 @@ class Worksheet implements IXml
 		worksheet.set('xmlns', Constants.SPREADSHEET_ML);
 		worksheet.set('xmlns:r', Constants.RELATION_SCHEMA);
 		
+		
+		
+		var minRow = 1000000;
+		var maxRow = 0;
+		var minCol = 65536;
+		var maxCol = 0;
+		
+		
+		
+		var rows:Array<Row> = [];
+		
+		for (cell in cells)
+		{
+			var row = rows.filter(function(r) return r.row == cell.row)[0];
+			if (row == null) 
+				rows.push(row = new Row(cell.row));
+			
+			if (cell.row < minRow) minRow = cell.row;
+			if (cell.col < minCol) minCol = cell.col;
+			if (cell.row > maxRow) maxRow = cell.row;
+			if (cell.col > maxCol) maxCol = cell.col;
+			
+			row.addCell(cell);
+		}
+		
+		var minRef = A1Reference.create(minRow, minCol);
+		var maxRef = A1Reference.create(maxRow, maxCol);
+		
 		var dimension = worksheet.addNewElement('dimension');
-		dimension.set('ref', 'A1');
+		dimension.set('ref', '$minRef:$maxRef');
 		
 		var sheetData = worksheet.addNewElement('sheetData');
 		
-		var rows = new Map<Int, Row>();
-		for (cell in cells)
-		{
-			if (!rows.exists(cell.row))
-				rows[cell.row] = new Row(cell.row);
-			
-			rows[cell.row].addCell(cell);
-		}
-		
+		rows.sort(function(r1, r2) return r1.row - r2.row);
 		for (row in rows) 
 			sheetData.addChild(row.toXml());
 		

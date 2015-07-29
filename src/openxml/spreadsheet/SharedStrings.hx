@@ -1,23 +1,66 @@
 package openxml.spreadsheet;
 
 import openxml.util.IXml;
-
+using openxml.util.XmlTools;
 /**
  * ...
  * @author Kevin
  */
 class SharedStrings implements IXml
 {
-
-	public function new() 
+	public static var instance:SharedStrings = new SharedStrings();
+	
+	var strings:Array<{value:String, count:Int}>;
+	var index:Int;
+	
+	function new() 
 	{
-		super();
+		strings = [];
+	}
+	
+	public function addString(str:String):Int
+	{
+		var index = getIndex(str);
 		
+		if (index == -1) 
+			index = strings.push({value:str, count:1}) - 1;
+		else
+			strings[index].count ++;
+		
+		return index;
 	}
 	
-	override public function toXml():Xml 
+	public function removeString(str:String)
 	{
-		return super.toXml();
+		var index = getIndex(str);
+		if (index != -1) strings[index].count --;
 	}
 	
+	public function getIndex(str:String):Int
+	{
+		for (i in 0...strings.length) if (strings[i].value == str) return i;
+		return -1;
+	}
+	
+	public function toXml():Xml 
+	{
+		var xml = Xml.createDocument();
+		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
+		
+		var xsst = xml.addNewElement('sst');
+		xsst.set('xmlns', "http://schemas.openxmlformats.org/spreadsheetml/2006/main");
+		
+		var count = 0;
+		for (s in strings)
+		{
+			count += s.count;
+			var xsi = xsst.addNewElement('si');
+			xsi.addNewElement('t', s.value);
+		}
+		
+		xsst.set('count', Std.string(count));
+		xsst.set('uniqueCount', Std.string(strings.length));
+		
+		return xml;
+	}
 }

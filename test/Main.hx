@@ -20,6 +20,9 @@ class Main
 		var wb = new Workbook();
 		var ws = wb.addWorksheet('SheetA');
 		ws.getCell(1, 1).content = CString("hihi");
+		ws.getCell(1, 2).content = CString("hihi");
+		ws.getCell(3, 3).content = CString("hihi2");
+		ws.getCell(3, 4).content = CString("hihi2");
 		
 		var f = File.write('output.xlsx', true);
 		var w = new Writer(f);

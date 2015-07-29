@@ -38,9 +38,9 @@ class Cell implements IXml
 				c.set('t', DTString);
 				c.addNewElement('f', Std.string(formula));
 			case CString(value): 
+				var index = SharedStrings.instance.addString(value);
 				c.set('t', DTSharedString);
-				c.addNewElement('v', Std.string(value));
-				
+				c.addNewElement('v', Std.string(index));
 		}
 		
 		return c;
