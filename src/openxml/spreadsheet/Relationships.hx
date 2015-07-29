@@ -1,34 +1,32 @@
 package openxml.spreadsheet;
-import openxml.util.XmlObject;
+import openxml.util.IXml;
 using openxml.util.XmlTools;
 /**
  * ...
  * @author Kevin
  */
-class Relationships extends XmlObject
+class Relationships implements IXml
 {
 	var relationships:Array<Relationship>;
 	
 	public function new() 
 	{
-		super();
-		
 		relationships = [];
 	}
 	
-	public function add(object:XmlObject, type:RelationshipType, target:String)
+	public function add(object:IXml, type:RelationshipType, target:String)
 	{
 		if (get(object) == null)
 			relationships.push( { object:object, type:type, target:target } );
 	}
 	
-	public function get(object:XmlObject):Relationship
+	public function get(object:IXml):Relationship
 	{
 		for (o in relationships) if (o.object == object) return o;
 		return null;
 	}
 	
-	override public function toXml():Xml 
+	public function toXml():Xml 
 	{
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
@@ -61,7 +59,7 @@ abstract RelationshipType(String) to String
 
 typedef Relationship =
 {
-	object:XmlObject,
+	object:IXml,
 	type:RelationshipType,
 	target:String,
 }

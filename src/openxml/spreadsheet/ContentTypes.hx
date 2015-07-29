@@ -1,17 +1,16 @@
 package openxml.spreadsheet;
-import openxml.util.XmlObject;
+import openxml.util.IXml;
 
 using openxml.util.XmlTools;
 /**
  * ...
  * @author Kevin
  */
-class ContentTypes extends XmlObject
+class ContentTypes implements IXml
 {
 	var overrides:Array<{partName:String, contentType:ContentType}>;
 	public function new()
 	{
-		super();
 		overrides = [];
 	}
 	
@@ -20,7 +19,7 @@ class ContentTypes extends XmlObject
 		overrides.push({partName:partName, contentType:contentType});
 	}
 	
-	override public function toXml():Xml 
+	public function toXml():Xml 
 	{
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');

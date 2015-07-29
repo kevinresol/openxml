@@ -1,21 +1,20 @@
 package openxml.spreadsheet;
 
-import openxml.util.XmlObject;
+import openxml.util.IXml;
 using openxml.util.XmlTools;
 /**
  * ...
  * @author Kevin
  */
-class CoreProperties extends XmlObject
+class CoreProperties implements IXml
 {
 
 	public function new() 
 	{
-		super();
 		
 	}
 	
-	override public function toXml():Xml 
+	public function toXml():Xml 
 	{
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');

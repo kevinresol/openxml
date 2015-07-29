@@ -1,12 +1,12 @@
 package openxml.spreadsheet;
-import openxml.util.XmlObject;
+import openxml.util.IXml;
 
 using openxml.util.XmlTools;
 /**
  * ...
  * @author Kevin
  */
-class Workbook extends XmlObject
+class Workbook implements IXml
 {
 	public var worksheets:Array<Worksheet>;
 	public var relationships:Relationships;
@@ -15,11 +15,8 @@ class Workbook extends XmlObject
 	
 	public function new() 
 	{
-		super();
 		worksheets = [];
 		relationships = new Relationships();
-		
-		
 	}
 	
 	public function addWorksheet(name:String):Worksheet
@@ -31,7 +28,7 @@ class Workbook extends XmlObject
 		return ws;
 	}
 	
-	override public function toXml()
+	public function toXml()
 	{
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');

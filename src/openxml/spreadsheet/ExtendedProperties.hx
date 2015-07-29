@@ -1,27 +1,20 @@
 package openxml.spreadsheet;
 
-import openxml.util.XmlObject;
+import openxml.util.IXml;
 using openxml.util.XmlTools;
 /**
  * ...
  * @author Kevin
  */
-class ExtendedProperties extends XmlObject
+class ExtendedProperties implements IXml
 {
 
 	public function new() 
 	{
-		super();
-		
-		
-		
-		//var headingPairs = p.addNewElement('HeadingPairs')
-		
-		
 		
 	}
 	
-	override public function toXml():Xml 
+	public function toXml():Xml 
 	{
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
@@ -33,6 +26,8 @@ class ExtendedProperties extends XmlObject
 		p.addNewElement('Application', 'Microsoft Excel');
 		p.addNewElement('DocSecurity', '0');
 		p.addNewElement('ScaleCrop', 'false');
+		
+		//var headingPairs = p.addNewElement('HeadingPairs')
 		
 		return xml;
 	}

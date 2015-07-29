@@ -19,6 +19,7 @@ class Main
 	{
 		var wb = new Workbook();
 		var ws = wb.addWorksheet('SheetA');
+		ws.getCell(1, 1).content = CString("hihi");
 		
 		var f = File.write('output.xlsx', true);
 		var w = new Writer(f);

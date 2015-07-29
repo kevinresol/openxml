@@ -1,46 +1,57 @@
 package openxml.spreadsheet;
-import openxml.util.XmlObject;
+import openxml.util.IXml;
 using openxml.util.XmlTools;
 /**
  * ...
  * @author Kevin
  */
-class Cell extends XmlObject
+class Cell implements IXml
 {
-	public var formula:String;
-	public var value:String;
+	public var content:CellContent;
 	public var row:Int;
 	public var col:Int;
 	public var address:A1Reference;
 	public var dataType:DataType;
 
+	
 	public function new(row:Int, col:Int) 
 	{
-		super();
 		this.row = row;
 		this.col = col;
 		address = A1Reference.create(row, col);
 	}
 	
-	override public function toXml():Xml 
+	public function toXml():Xml 
 	{
 		var c = Xml.createElement('c');
 		c.set('r', address);
-		c.set('t', dataType);
 		
-		if (value != null) c.addNewElement('v', value);
-		if (formula != null) c.addNewElement('f', formula);
+		switch (content) 
+		{
+			case CBool(value): 
+				c.set('t', DTBool);
+				c.addNewElement('v', Std.string(value));
+			case CNumber(value): 
+				c.set('t', DTNumber);
+				c.addNewElement('v', Std.string(value));
+			case CFormula(formula): 
+				c.set('t', DTString);
+				c.addNewElement('f', Std.string(formula));
+			case CString(value): 
+				c.set('t', DTSharedString);
+				c.addNewElement('v', Std.string(value));
+				
+		}
 		
 		return c;
 	}
-	
 }
 
 abstract A1Reference(String) to String
 {
 	public static inline function create(row:Int, col:Int):A1Reference
 	{
-		var address = columnNumToLetter(col) + row;
+		var address = columnNumToLetter(col) + (row + 1);
 		return new A1Reference(address);
 	}
 	
@@ -74,4 +85,12 @@ abstract DataType(String) to String
 	var DTNumber = 'n';
 	var DTSharedString = 's'; // shared string
 	var DTString = 'str'; // formula string
+}
+
+enum CellContent
+{
+	CBool(value:Bool);
+	CNumber(value:Float);
+	CFormula(formula:String);
+	CString(value:String);
 }

@@ -1,7 +1,7 @@
 package openxml.spreadsheet;
 
 import openxml.spreadsheet.Cell;
-import openxml.util.XmlObject;
+import openxml.util.IXml;
 
 using openxml.util.XmlTools;
 
@@ -9,17 +9,15 @@ using openxml.util.XmlTools;
  * ...
  * @author Kevin
  */
-class Row extends XmlObject
+class Row implements IXml
 {
-	public var rowIndex:Int;
+	public var row:Int;
 	
 	var cells:Array<Cell>;
 
-	public function new(rowIndex:Int) 
+	public function new(row:Int) 
 	{
-		super();
-		
-		this.rowIndex = rowIndex;
+		this.row = row;
 		cells = [];
 	}
 	
@@ -29,18 +27,13 @@ class Row extends XmlObject
 			cells.push(cell);
 	}
 	
-	override public function toXml():Xml 
+	public function toXml():Xml 
 	{
 		var xr = Xml.createElement('row');
-		xr.set('r', Std.string(rowIndex));
+		xr.set('r', Std.string(row + 1));
 		
 		for (cell in cells)
-		{
-			var xc = xr.addNewElement('c');
-			
-		}
-		
-		
+			xr.addChild(cell.toXml());
 		
 		return xr;
 	}
