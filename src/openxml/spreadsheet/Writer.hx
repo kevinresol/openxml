@@ -11,6 +11,7 @@ import openxml.util.IXml;
 
 using openxml.util.XmlTools;
 using openxml.spreadsheet.Writer;
+using haxe.xml.Printer;
 /**
  * ...
  * @author Kevin
@@ -62,7 +63,8 @@ class Writer
 	
 	static function toEntry(xml:IXml, fileName:String):Entry
 	{
-		var data = Bytes.ofString(xml.toXml().toString());
+		var xmlString = xml.toXml().print(false);
+		var data = Bytes.ofString(xmlString);
 		var e = {
 			fileName: fileName,
 			fileSize: data.length,
