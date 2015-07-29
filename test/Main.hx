@@ -1,9 +1,6 @@
 package;
 
-import format.zip.Reader;
-import format.zip.Tools;
 import openxml.spreadsheet.Workbook;
-import openxml.spreadsheet.Worksheet;
 import openxml.spreadsheet.Writer;
 import sys.io.File;
 
