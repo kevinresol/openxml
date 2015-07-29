@@ -26,16 +26,15 @@ class Writer
 	public function write(workbook:Workbook) 
 	{
 		var zipWriter = new ZipWriter(o);
-		
+		var entries = new List();
+		var core = new CoreProperties();
+		var app = new ExtendedProperties();
 		var contentTypes = new ContentTypes();
+		var xlRelationships = new Relationships();
+		var relationships = new Relationships();
+		
 		contentTypes.addPart("/docProps/core.xml", CTCoreProperties);
 		contentTypes.addPart("/docProps/app.xml", CTExtendedProperties);
-		
-		var xlRelationships = new Relationships();
-
-		
-		var entries = new List();
-		entries.add(workbook.toEntry('xl/workbook.xml'));
 		contentTypes.addPart('/xl/workbook.xml', CTWorkbook);
 		
 		for (i in 0...workbook.worksheets.length)
@@ -47,18 +46,14 @@ class Writer
 			xlRelationships.addRelationship('rId$id', RTWorksheet, 'worksheets/sheet$id.xml');
 		}
 		
-		entries.add(contentTypes.toEntry('[Content_Types].xml'));
-		entries.add(xlRelationships.toEntry('xl/_rels/workbook.xml.rels'));
-		
-		var relationships = new Relationships();
 		relationships.addRelationship("rId3", RTExtendedProperties, "docProps/app.xml");
 		relationships.addRelationship("rId2", RTCoreProperties, "docProps/core.xml");
 		relationships.addRelationship("rId1", RTOfficeDocument, "xl/workbook.xml");
+		
+		entries.add(workbook.toEntry('xl/workbook.xml'));
 		entries.add(relationships.toEntry('_rels/.rels'));
-		
-		var core = new CoreProperties();
-		var app = new ExtendedProperties();
-		
+		entries.add(contentTypes.toEntry('[Content_Types].xml'));
+		entries.add(xlRelationships.toEntry('xl/_rels/workbook.xml.rels'));
 		entries.add(core.toEntry('docProps/core.xml'));
 		entries.add(app.toEntry('docProps/app.xml'));
 		
