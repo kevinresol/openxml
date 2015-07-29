@@ -23,8 +23,11 @@ class Main
 		ws.getCell(4, 5).content = CNumber(1.262234936);
 		
 		var ws = wb.addWorksheet('SheetB');
-		ws.getCell(3, 3).content = CString("Same string value");
-		ws.getCell(3, 4).clearContent();
+		
+		var cell = ws.getCell(3, 3);
+		cell.content = CString("Same string value");
+		cell.clearContent();
+		
 		ws.getCell(4, 4).content = CFormula("A1+A2");
 		ws.getCell(4, 5).content = CNumber(1.262234936);
 		
