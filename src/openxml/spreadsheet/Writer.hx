@@ -61,9 +61,9 @@ class Writer
 		zipWriter.write(entries);
 	}
 	
-	static function toEntry(xml:IXml, fileName:String):Entry
+	static function toEntry(object:IXml, fileName:String):Entry
 	{
-		var xmlString = xml.toXml().print(false);
+		var xmlString = object.toXml().print(false);
 		var data = Bytes.ofString(xmlString);
 		var e = {
 			fileName: fileName,
