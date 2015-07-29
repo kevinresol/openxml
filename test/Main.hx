@@ -16,19 +16,14 @@ class Main
 	{
 		var wb = new Workbook();
 		var ws = wb.addWorksheet('SheetA');
-		ws.getCell(1, 1).content = CString("hihi");
-		ws.getCell(1, 2).content = CString("hihi");
-		ws.getCell(3, 3).content = CString("hihi2");
-		ws.getCell(3, 4).content = CString("hihi2");
+		ws.getCell(1, 1).content = CString("A string value");
+		ws.getCell(1, 2).content = CString("Same string value");
+		ws.getCell(3, 3).content = CString("Same string value");
 		ws.getCell(4, 4).content = CFormula("A1+A2");
 		ws.getCell(4, 5).content = CNumber(1.262234936);
 		
-		
 		var ws = wb.addWorksheet('SheetB');
-		ws.getCell(1, 1).content = CString("hihi");
-		ws.getCell(1, 2).content = CString("hihi");
-		ws.getCell(3, 3).content = CString("hihi2");
-		ws.getCell(3, 4).content = CString("hihi2");
+		ws.getCell(3, 3).content = CString("Same string value");
 		ws.getCell(3, 4).clearContent();
 		ws.getCell(4, 4).content = CFormula("A1+A2");
 		ws.getCell(4, 5).content = CNumber(1.262234936);
