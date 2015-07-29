@@ -56,6 +56,12 @@ class Writer
 		relationships.addRelationship("rId1", RTOfficeDocument, "xl/workbook.xml");
 		entries.add(relationships.toEntry('_rels/.rels'));
 		
+		var core = new CoreProperties();
+		var app = new ExtendedProperties();
+		
+		entries.add(core.toEntry('docProps/core.xml'));
+		entries.add(app.toEntry('docProps/app.xml'));
+		
 		zipWriter.write(entries);
 	}
 	

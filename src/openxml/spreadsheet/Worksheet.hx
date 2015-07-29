@@ -1,6 +1,4 @@
 package openxml.spreadsheet;
-import haxe.xml.Fast;
-import openxml.util.IXml;
 import openxml.util.XmlObject;
 
 using openxml.util.XmlTools;
