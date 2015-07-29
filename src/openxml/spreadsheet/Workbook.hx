@@ -11,8 +11,6 @@ class Workbook implements IXml
 	public var worksheets:Array<Worksheet>;
 	public var relationships:Relationships;
 	
-	var sheets:Xml;
-	
 	public function new() 
 	{
 		worksheets = [];
@@ -37,7 +35,7 @@ class Workbook implements IXml
 		workbook.set('xmlns', Constants.SPREADSHEET_ML);
 		workbook.set('xmlns:r', Constants.RELATION_SCHEMA);
 		
-		sheets = workbook.addNewElement('sheets');
+		var sheets = workbook.addNewElement('sheets');
 		
 		for (i in 0...worksheets.length)
 		{

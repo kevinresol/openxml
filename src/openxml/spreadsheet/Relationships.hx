@@ -32,7 +32,7 @@ class Relationships implements IXml
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
 		
 		var xrs = xml.addNewElement('Relationships');
-		xrs.set('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
+		xrs.set('xmlns', Constants.RELATION_SCHEMA);
 		
 		for (i in 0...relationships.length)
 		{
