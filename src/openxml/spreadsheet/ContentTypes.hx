@@ -24,22 +24,22 @@ class ContentTypes implements IXml
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
 		
-		var types = xml.addNewElement('Types');
+		var types = xml.addElement('Types');
 		types.set('xmlns', "http://schemas.openxmlformats.org/package/2006/content-types"); 
 		types.set('xmlns:xsd', "http://www.w3.org/2001/XMLSchema");
 		types.set('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
 		
-		var d = types.addNewElement('Default');
+		var d = types.addElement('Default');
 		d.set('Extension', 'rels');
 		d.set('ContentType', CTRelationships);
 		
-		var d = types.addNewElement('Default');
+		var d = types.addElement('Default');
 		d.set('Extension', 'xml');
 		d.set('ContentType', CTXml);
 		
 		for (o in overrides)
 		{
-			var xo = types.addNewElement('Override');
+			var xo = types.addElement('Override');
 			xo.set('PartName', o.partName);
 			xo.set('ContentType', o.contentType);
 		}

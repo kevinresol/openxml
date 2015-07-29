@@ -31,14 +31,14 @@ class Relationships implements IXml
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
 		
-		var xrs = xml.addNewElement('Relationships');
+		var xrs = xml.addElement('Relationships');
 		xrs.set('xmlns', Constants.RELATION_SCHEMA);
 		
 		for (i in 0...relationships.length)
 		{
 			var id = i + 1;
 			var r = relationships[i];
-			var xr = xrs.addNewElement('Relationship');
+			var xr = xrs.addElement('Relationship');
 			xr.set('Id', 'rId$id');
 			xr.set('Type', r.type);
 			xr.set('Target', r.target);

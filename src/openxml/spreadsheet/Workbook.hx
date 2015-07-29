@@ -26,22 +26,28 @@ class Workbook implements IXml
 		return ws;
 	}
 	
+	public function getWorksheet(name:String):Worksheet
+	{
+		for (ws in worksheets) if (ws.name == name) return ws;
+		return null;
+	}
+	
 	public function toXml()
 	{
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
 		
-		var workbook = xml.addNewElement('workbook');
+		var workbook = xml.addElement('workbook');
 		workbook.set('xmlns', Constants.SPREADSHEET_ML);
 		workbook.set('xmlns:r', Constants.RELATION_SCHEMA);
 		
-		var sheets = workbook.addNewElement('sheets');
+		var sheets = workbook.addElement('sheets');
 		
 		for (i in 0...worksheets.length)
 		{
 			var ws = worksheets[i];
 			var id = i + 1;
-			var sheet = sheets.addNewElement('sheet');
+			var sheet = sheets.addElement('sheet');
 			sheet.set('name', ws.name);
 			sheet.set('sheetId', '$id');
 			sheet.set('r:id', 'rId$id');

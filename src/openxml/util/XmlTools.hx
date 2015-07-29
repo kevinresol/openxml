@@ -7,7 +7,7 @@ package openxml.util;
 class XmlTools
 {
 
-	public static function addNewElement(xml:Xml, name:String, ?text:String):Xml 
+	public static function addElement(xml:Xml, name:String, ?text:String):Xml 
 	{
 		var e = Xml.createElement(name);
 		xml.addChild(e);

@@ -47,15 +47,15 @@ class SharedStrings implements IXml
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
 		
-		var xsst = xml.addNewElement('sst');
+		var xsst = xml.addElement('sst');
 		xsst.set('xmlns', Constants.SPREADSHEET_ML);
 		
 		var count = 0;
 		for (s in strings)
 		{
 			count += s.count;
-			var xsi = xsst.addNewElement('si');
-			xsi.addNewElement('t', s.value);
+			var xsi = xsst.addElement('si');
+			xsi.addElement('t', s.value);
 		}
 		
 		xsst.set('count', Std.string(count));

@@ -37,17 +37,17 @@ class Cell implements IXml
 		{
 			case CBool(value): 
 				c.set('t', DTBool);
-				c.addNewElement('v', Std.string(value));
+				c.addElement('v', Std.string(value));
 			case CNumber(value): 
 				c.set('t', DTNumber);
-				c.addNewElement('v', Std.string(value));
+				c.addElement('v', Std.string(value));
 			case CFormula(formula): 
 				c.set('t', DTString);
-				c.addNewElement('f', Std.string(formula));
+				c.addElement('f', Std.string(formula));
 			case CString(value): 
 				var index = SharedStrings.instance.addString(value);
 				c.set('t', DTSharedString);
-				c.addNewElement('v', Std.string(index));
+				c.addElement('v', Std.string(index));
 		}
 		
 		return c;

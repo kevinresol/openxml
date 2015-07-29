@@ -19,15 +19,15 @@ class ExtendedProperties implements IXml
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
 		
-		var p = xml.addNewElement('Properties');
+		var p = xml.addElement('Properties');
 		p.set('xmlns', "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties");
 		p.set('xmlns:vt', "http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes");
 		
-		p.addNewElement('Application', 'Microsoft Excel');
-		p.addNewElement('DocSecurity', '0');
-		p.addNewElement('ScaleCrop', 'false');
+		p.addElement('Application', 'Microsoft Excel');
+		p.addElement('DocSecurity', '0');
+		p.addElement('ScaleCrop', 'false');
 		
-		//var headingPairs = p.addNewElement('HeadingPairs')
+		//var headingPairs = p.addElement('HeadingPairs')
 		
 		return xml;
 	}

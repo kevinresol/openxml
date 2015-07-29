@@ -25,7 +25,7 @@ class Worksheet implements IXml
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
 		
-		var worksheet = xml.addNewElement('worksheet');
+		var worksheet = xml.addElement('worksheet');
 		worksheet.set('xmlns', Constants.SPREADSHEET_ML);
 		worksheet.set('xmlns:r', Constants.RELATION_SCHEMA);
 		
@@ -54,10 +54,10 @@ class Worksheet implements IXml
 			row.addCell(cell);
 		}
 		
-		var dimension = worksheet.addNewElement('dimension');
+		var dimension = worksheet.addElement('dimension');
 		dimension.set('ref', A1Reference.createRange(minRow, minCol, maxRow, maxCol));
 		
-		var sheetData = worksheet.addNewElement('sheetData');
+		var sheetData = worksheet.addElement('sheetData');
 		
 		rows.sort(function(r1, r2) return r1.row - r2.row);
 		for (row in rows) 

@@ -19,7 +19,7 @@ class CoreProperties implements IXml
 		var xml = Xml.createDocument();
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
 		
-		var cp = xml.addNewElement('cp:coreProperties');
+		var cp = xml.addElement('cp:coreProperties');
 		cp.set('xmlns:cp', "http://schemas.openxmlformats.org/package/2006/metadata/core-properties");
 		cp.set('xmlns:dc', "http://purl.org/dc/elements/1.1/");
 		cp.set('xmlns:dcmitype', "http://purl.org/dc/dcmitype/");
