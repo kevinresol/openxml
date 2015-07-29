@@ -8,13 +8,15 @@ using openxml.util.XmlTools;
  */
 class Worksheet extends XmlObject
 {
-	public var name:String = "Sheet";
+	public var name:String;
+	public var id:Int;
 	
-	
-	public function new() 
+	public function new(name:String) 
 	{
 		super();
 		header = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+		
+		this.name = name;
 		
 		var worksheet = xml.addNewElement('worksheet');
 		worksheet.set('xmlns', Constants.SPREADSHEET_ML);

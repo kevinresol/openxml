@@ -7,23 +7,46 @@ using openxml.util.XmlTools;
  */
 class Relationships extends XmlObject
 {
-	var relationships:Xml;
+	var relationships:Array<Relationship>;
 	
 	public function new() 
 	{
 		super();
 		header = '<?xml version="1.0" encoding="UTF-8"?>';
-		relationships = xml.addNewElement('Relationships');
-		relationships.set('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
+		
+		relationships = [];
 	}
 	
-	public function addRelationship(rId:String, relationshipType:RelationshipType, target:String)
+	public function add(object:XmlObject, type:RelationshipType, target:String)
 	{
-		var r = relationships.addNewElement('Relationship');
-		r.set('Id', rId);
-		r.set('Type', relationshipType);
-		r.set('Target', target);
-		//<Relationship Id="rId1" Type= Target="worksheets/sheet1.xml" />
+		if (get(object) == null)
+			relationships.push( { object:object, type:type, target:target } );
+	}
+	
+	public function get(object:XmlObject):Relationship
+	{
+		for (o in relationships) if (o.object == object) return o;
+		return null;
+	}
+	
+	override public function toXmlString():String 
+	{
+		xml = Xml.createDocument();
+		
+		var xrs = xml.addNewElement('Relationships');
+		xrs.set('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
+		
+		for (i in 0...relationships.length)
+		{
+			var id = i + 1;
+			var r = relationships[i];
+			var xr = xrs.addNewElement('Relationship');
+			xr.set('Id', 'rId$id');
+			xr.set('Type', r.type);
+			xr.set('Target', r.target);
+		}
+		
+		return xml.toString();
 	}
 }
 
@@ -34,5 +57,11 @@ abstract RelationshipType(String) to String
 	var RTExtendedProperties = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties";
 	var RTCoreProperties = "http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties";
 	var RTOfficeDocument = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument";
+}
 
+typedef Relationship =
+{
+	object:XmlObject,
+	type:RelationshipType,
+	target:String,
 }

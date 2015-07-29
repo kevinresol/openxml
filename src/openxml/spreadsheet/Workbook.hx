@@ -9,6 +9,7 @@ using openxml.util.XmlTools;
 class Workbook extends XmlObject
 {
 	public var worksheets:Array<Worksheet>;
+	public var relationships:Relationships;
 	
 	var sheets:Xml;
 	
@@ -17,12 +18,22 @@ class Workbook extends XmlObject
 		super();
 		header = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
 		worksheets = [];
+		relationships = new Relationships();
 		
 		var workbook = xml.addNewElement('workbook');
 		workbook.set('xmlns', Constants.SPREADSHEET_ML);
 		workbook.set('xmlns:r', Constants.RELATION_SCHEMA);
 		
 		sheets = workbook.addNewElement('sheets');
+	}
+	
+	public function addWorksheet(name:String):Worksheet
+	{
+		var ws = new Worksheet(name);
+		worksheets.push(ws);
+		ws.id = worksheets.length;
+		relationships.add(ws, RTWorksheet, 'worksheets/sheet${ws.id}.xml');
+		return ws;
 	}
 	
 	override public function toXmlString()

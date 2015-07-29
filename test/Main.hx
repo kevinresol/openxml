@@ -18,8 +18,7 @@ class Main
 	static function main() 
 	{
 		var wb = new Workbook();
-		var ws = new Worksheet();
-		wb.worksheets.push(ws);
+		var ws = wb.addWorksheet('SheetA');
 		
 		var f = File.write('output.xlsx', true);
 		var w = new Writer(f);

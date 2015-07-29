@@ -30,30 +30,26 @@ class Writer
 		var core = new CoreProperties();
 		var app = new ExtendedProperties();
 		var contentTypes = new ContentTypes();
-		var xlRelationships = new Relationships();
 		var relationships = new Relationships();
 		
 		contentTypes.addPart("/docProps/core.xml", CTCoreProperties);
 		contentTypes.addPart("/docProps/app.xml", CTExtendedProperties);
 		contentTypes.addPart('/xl/workbook.xml', CTWorkbook);
 		
-		for (i in 0...workbook.worksheets.length)
+		for (ws in workbook.worksheets)
 		{
-			var ws = workbook.worksheets[i];
-			var id = i + 1;
-			entries.add(ws.toEntry('xl/worksheets/sheet$id.xml'));
-			contentTypes.addPart('/xl/worksheets/sheet$id.xml', CTWorksheet);
-			xlRelationships.addRelationship('rId$id', RTWorksheet, 'worksheets/sheet$id.xml');
+			entries.add(ws.toEntry('xl/worksheets/sheet${ws.id}.xml'));
+			contentTypes.addPart('/xl/worksheets/sheet${ws.id}.xml', CTWorksheet);
 		}
 		
-		relationships.addRelationship("rId3", RTExtendedProperties, "docProps/app.xml");
-		relationships.addRelationship("rId2", RTCoreProperties, "docProps/core.xml");
-		relationships.addRelationship("rId1", RTOfficeDocument, "xl/workbook.xml");
+		relationships.add(app, RTExtendedProperties, "docProps/app.xml");
+		relationships.add(core, RTCoreProperties, "docProps/core.xml");
+		relationships.add(workbook, RTOfficeDocument, "xl/workbook.xml");
 		
 		entries.add(workbook.toEntry('xl/workbook.xml'));
 		entries.add(relationships.toEntry('_rels/.rels'));
 		entries.add(contentTypes.toEntry('[Content_Types].xml'));
-		entries.add(xlRelationships.toEntry('xl/_rels/workbook.xml.rels'));
+		entries.add(workbook.relationships.toEntry('xl/_rels/workbook.xml.rels'));
 		entries.add(core.toEntry('docProps/core.xml'));
 		entries.add(app.toEntry('docProps/app.xml'));
 		
