@@ -62,6 +62,21 @@ abstract A1Reference(String) to String
 		return new A1Reference(address);
 	}
 	
+	public static inline function createRange(row1:Int, col1:Int, row2:Int, col2:Int):A1Reference
+	{
+		if (row1 == row2 && col1 == col2) return create(row1, col1);
+		
+		var minR = row1;
+		var maxR = row2;
+		var minC = col1;
+		var maxC = col2;
+		
+		if (row1 > row2) { minR = row2; maxR = row1; }
+		if (col1 > col2) { minC = col2; maxC = col1; }
+		
+		return new A1Reference(columnNumToLetter(minC) + (minR + 1) + ":" + columnNumToLetter(maxC) + (maxR + 1));
+	}
+	
 	inline function new(ref:String) 
 	{
 		this = ref;

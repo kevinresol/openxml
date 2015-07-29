@@ -54,11 +54,8 @@ class Worksheet implements IXml
 			row.addCell(cell);
 		}
 		
-		var minRef = A1Reference.create(minRow, minCol);
-		var maxRef = A1Reference.create(maxRow, maxCol);
-		
 		var dimension = worksheet.addNewElement('dimension');
-		dimension.set('ref', '$minRef:$maxRef');
+		dimension.set('ref', A1Reference.createRange(minRow, minCol, maxRow, maxCol));
 		
 		var sheetData = worksheet.addNewElement('sheetData');
 		
