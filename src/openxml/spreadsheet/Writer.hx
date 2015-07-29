@@ -58,7 +58,7 @@ class Writer
 	
 	static function toEntry(xml:IXml, fileName:String):Entry
 	{
-		var data = Bytes.ofString(xml.toXmlString());
+		var data = Bytes.ofString(xml.toXml().toString());
 		var e = {
 			fileName: fileName,
 			fileSize: data.length,

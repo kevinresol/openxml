@@ -16,15 +16,10 @@ class Workbook extends XmlObject
 	public function new() 
 	{
 		super();
-		header = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
 		worksheets = [];
 		relationships = new Relationships();
 		
-		var workbook = xml.addNewElement('workbook');
-		workbook.set('xmlns', Constants.SPREADSHEET_ML);
-		workbook.set('xmlns:r', Constants.RELATION_SCHEMA);
 		
-		sheets = workbook.addNewElement('sheets');
 	}
 	
 	public function addWorksheet(name:String):Worksheet
@@ -36,8 +31,17 @@ class Workbook extends XmlObject
 		return ws;
 	}
 	
-	override public function toXmlString()
+	override public function toXml()
 	{
+		var xml = Xml.createDocument();
+		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
+		
+		var workbook = xml.addNewElement('workbook');
+		workbook.set('xmlns', Constants.SPREADSHEET_ML);
+		workbook.set('xmlns:r', Constants.RELATION_SCHEMA);
+		
+		sheets = workbook.addNewElement('sheets');
+		
 		for (i in 0...worksheets.length)
 		{
 			var ws = worksheets[i];
@@ -47,6 +51,7 @@ class Workbook extends XmlObject
 			sheet.set('sheetId', '$id');
 			sheet.set('r:id', 'rId$id');
 		}
-		return super.toXmlString();
+		
+		return xml;
 	}
 }

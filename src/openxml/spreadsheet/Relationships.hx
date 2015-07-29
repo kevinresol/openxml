@@ -12,7 +12,6 @@ class Relationships extends XmlObject
 	public function new() 
 	{
 		super();
-		header = '<?xml version="1.0" encoding="UTF-8"?>';
 		
 		relationships = [];
 	}
@@ -29,9 +28,10 @@ class Relationships extends XmlObject
 		return null;
 	}
 	
-	override public function toXmlString():String 
+	override public function toXml():Xml 
 	{
-		xml = Xml.createDocument();
+		var xml = Xml.createDocument();
+		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
 		
 		var xrs = xml.addNewElement('Relationships');
 		xrs.set('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
@@ -46,7 +46,7 @@ class Relationships extends XmlObject
 			xr.set('Target', r.target);
 		}
 		
-		return xml.toString();
+		return xml;
 	}
 }
 

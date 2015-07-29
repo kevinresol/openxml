@@ -15,6 +15,13 @@ class XmlTools
 		return e;
 	}
 	
+	public static function addProcessingInstruction(xml:Xml, data:String):Xml
+	{
+		var pi = Xml.createProcessingInstruction(data);
+		xml.addChild(pi);
+		return pi;
+	}
+	
 	public static inline function firstElementNamed(xml:Xml, name:String):Xml
 	{
 		return xml.elementsNamed('name').next();

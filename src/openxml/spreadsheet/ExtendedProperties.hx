@@ -12,7 +12,19 @@ class ExtendedProperties extends XmlObject
 	public function new() 
 	{
 		super();
-		header = '<?xml version="1.0" encoding="UTF-8"?>';
+		
+		
+		
+		//var headingPairs = p.addNewElement('HeadingPairs')
+		
+		
+		
+	}
+	
+	override public function toXml():Xml 
+	{
+		var xml = Xml.createDocument();
+		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
 		
 		var p = xml.addNewElement('Properties');
 		p.set('xmlns', "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties");
@@ -22,10 +34,7 @@ class ExtendedProperties extends XmlObject
 		p.addNewElement('DocSecurity', '0');
 		p.addNewElement('ScaleCrop', 'false');
 		
-		//var headingPairs = p.addNewElement('HeadingPairs')
-		
-		
-		
+		return xml;
 	}
 	
 }

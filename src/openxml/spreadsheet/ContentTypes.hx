@@ -8,12 +8,24 @@ using openxml.util.XmlTools;
  */
 class ContentTypes extends XmlObject
 {
-	var types:Xml;
+	var overrides:Array<{partName:String, contentType:ContentType}>;
 	public function new()
 	{
 		super();
-		header = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
-		types = xml.addNewElement('Types');
+		overrides = [];
+	}
+	
+	public function addPart(partName:String, contentType:ContentType)
+	{
+		overrides.push({partName:partName, contentType:contentType});
+	}
+	
+	override public function toXml():Xml 
+	{
+		var xml = Xml.createDocument();
+		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
+		
+		var types = xml.addNewElement('Types');
 		types.set('xmlns', "http://schemas.openxmlformats.org/package/2006/content-types"); 
 		types.set('xmlns:xsd', "http://www.w3.org/2001/XMLSchema");
 		types.set('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
@@ -25,13 +37,15 @@ class ContentTypes extends XmlObject
 		var d = types.addNewElement('Default');
 		d.set('Extension', 'xml');
 		d.set('ContentType', CTXml);
-	}
-	
-	public function addPart(partName:String, contentType:ContentType)
-	{
-		var o = types.addNewElement('Override');
-		o.set('PartName', partName);
-		o.set('ContentType', contentType);
+		
+		for (o in overrides)
+		{
+			var xo = types.addNewElement('Override');
+			xo.set('PartName', o.partName);
+			xo.set('ContentType', o.contentType);
+		}
+		
+		return xml;
 	}
 }
 
@@ -50,3 +64,4 @@ abstract ContentType(String) to String
 	//<Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>
 	//<Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>
 }
+

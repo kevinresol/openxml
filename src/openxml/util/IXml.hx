@@ -6,5 +6,5 @@ package openxml.util;
 
 interface IXml 
 {
-	function toXmlString():String;
+	function toXml():Xml;
 }

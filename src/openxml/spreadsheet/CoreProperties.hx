@@ -12,7 +12,13 @@ class CoreProperties extends XmlObject
 	public function new() 
 	{
 		super();
-		header = '<?xml version="1.0" encoding="UTF-8"?>';
+		
+	}
+	
+	override public function toXml():Xml 
+	{
+		var xml = Xml.createDocument();
+		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
 		
 		var cp = xml.addNewElement('cp:coreProperties');
 		cp.set('xmlns:cp', "http://schemas.openxmlformats.org/package/2006/metadata/core-properties");
@@ -20,5 +26,7 @@ class CoreProperties extends XmlObject
 		cp.set('xmlns:dcmitype', "http://purl.org/dc/dcmitype/");
 		cp.set('xmlns:dcterms', "http://purl.org/dc/terms/");
 		cp.set('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
+		
+		return xml;
 	}
 }
