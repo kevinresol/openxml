@@ -2,6 +2,7 @@ package;
 
 import openxml.spreadsheet.Workbook;
 import openxml.spreadsheet.Writer;
+import openxml.wordprocessing.Document;
 import sys.io.File;
 
 /**
@@ -32,8 +33,16 @@ class Main
 		ws.getCell(4, 5).content = CNumber(1.262234936);
 		
 		var f = File.write('output.xlsx', true);
-		var w = new Writer(f);
+		var w = new openxml.spreadsheet.Writer(f);
 		w.write(wb);
+		f.close();
+		
+		var doc = new Document();
+		doc.body.addParagraph("My paragraph.");
+		
+		var f = File.write('output.docx', true);
+		var w = new openxml.wordprocessing.Writer(f);
+		w.write(doc);
 		f.close();
 	}
 	

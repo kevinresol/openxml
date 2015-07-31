@@ -63,5 +63,8 @@ abstract ContentType(String) to String
 	var CTWorksheet 			= "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml";
 	var CTSharedStrings			= "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml";
 	var CTStyles 				= "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml";
+	
+	var CTDocument				= "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml";
+	
 }
 

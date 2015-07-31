@@ -7,6 +7,7 @@ package openxml;
 class XmlNameSpaces
 {
 	public static var spreadsheetml = SpreadsheetML;
+	public static var wordprocessingml = WordprocessingML;
 	public static var officeDocument = OfficeDocument;
 	public static var pack = Package;
 }
@@ -14,6 +15,11 @@ class XmlNameSpaces
 private class SpreadsheetML
 {
 	public static inline var MAIN = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
+}
+
+private class WordprocessingML
+{
+	public static inline var MAIN = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
 }
 
 private class OfficeDocument

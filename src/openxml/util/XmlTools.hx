@@ -1,4 +1,9 @@
 package openxml.util;
+import format.zip.Data.Entry;
+import format.zip.Tools;
+import haxe.crypto.Crc32;
+import haxe.io.Bytes;
+using haxe.xml.Printer;
 
 /**
  * ...
@@ -30,6 +35,23 @@ class XmlTools
 	public static inline function setInnerText(xml:Xml, text:String):Void
 	{
 		xml.addChild(Xml.createPCData(text));
+	}
+	
+	public static function toEntry(object:IXml, fileName:String):Entry
+	{
+		var xmlString = object.toXml().print(false);
+		var data = Bytes.ofString(xmlString);
+		var e = {
+			fileName: fileName,
+			fileSize: data.length,
+			data: data,
+			fileTime: Date.now(),
+			compressed: false,
+			dataSize: data.length,
+			crc32: Crc32.make(data),
+		}
+		Tools.compress(e, 9);
+		return e;
 	}
 	
 }

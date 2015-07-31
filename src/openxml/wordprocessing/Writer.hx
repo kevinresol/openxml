@@ -1,4 +1,4 @@
-package openxml.spreadsheet;
+package openxml.wordprocessing;
 import format.zip.Tools;
 import haxe.crypto.Crc32;
 import haxe.io.Bytes;
@@ -24,40 +24,32 @@ class Writer
 		this.o = o;
 	}
 
-	public function write(workbook:Workbook) 
+	public function write(document:Document) 
 	{
 		var zipWriter = new ZipWriter(o);
 		var entries = new List();
 		var core = new CoreProperties();
-		var app = new ExtendedProperties(AppExcel);
+		var app = new ExtendedProperties(AppWord);
 		var contentTypes = new ContentTypes();
 		var relationships = new Relationships();
 		
 		contentTypes.addPart("/docProps/core.xml", CTCoreProperties);
 		contentTypes.addPart("/docProps/app.xml", CTExtendedProperties);
-		contentTypes.addPart('/xl/workbook.xml', CTWorkbook);
-		contentTypes.addPart('/xl/sharedStrings.xml', CTSharedStrings);
-		
-		for (ws in workbook.worksheets)
-		{
-			entries.add(ws.toEntry('xl/worksheets/sheet${ws.id}.xml'));
-			contentTypes.addPart('/xl/worksheets/sheet${ws.id}.xml', CTWorksheet);
-		}
+		contentTypes.addPart('/word/document.xml', CTDocument);
 		
 		relationships.add(app, RTExtendedProperties, "docProps/app.xml");
 		relationships.add(core, RTCoreProperties, "docProps/core.xml");
-		relationships.add(workbook, RTOfficeDocument, "xl/workbook.xml");
-		
-		workbook.relationships.add(SharedStrings.instance, RTSharedStrings, "sharedStrings.xml");
+		relationships.add(document, RTOfficeDocument, "word/document.xml");
 		
 		entries.add(relationships.toEntry('_rels/.rels'));
 		entries.add(contentTypes.toEntry('[Content_Types].xml'));
 		entries.add(core.toEntry('docProps/core.xml'));
 		entries.add(app.toEntry('docProps/app.xml'));
-		entries.add(workbook.toEntry('xl/workbook.xml'));
-		entries.add(workbook.relationships.toEntry('xl/_rels/workbook.xml.rels'));
-		entries.add(SharedStrings.instance.toEntry('xl/sharedStrings.xml'));
+		entries.add(document.toEntry('word/document.xml'));
+		entries.add(document.relationships.toEntry('word/_rels/document.xml.rels'));
 		
 		zipWriter.write(entries);
 	}
+	
+	
 }

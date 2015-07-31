@@ -39,6 +39,7 @@ class ExtendedProperties implements IXml
 abstract Application(String) to String
 {
 	var AppExcel = 'Microsoft Excel';
+	var AppWord = 'Microsoft Office Word';
 }
 
 /*<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
