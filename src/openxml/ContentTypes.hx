@@ -25,7 +25,7 @@ class ContentTypes implements IXml
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
 		
 		var types = xml.addElement('Types');
-		types.set('xmlns', "http://schemas.openxmlformats.org/package/2006/content-types"); 
+		types.set('xmlns', XmlNameSpaces.pack.CONTENT_TYPES); 
 		types.set('xmlns:xsd', "http://www.w3.org/2001/XMLSchema");
 		types.set('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
 		
