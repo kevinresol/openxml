@@ -60,6 +60,7 @@ abstract RelationshipType(String) to String
 	// spreadsheet
 	var RTWorksheet 			= "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet";
 	var RTSharedStrings 		= "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings";
+	var RTStyles				= "http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles";
 	
 	// wordprocessing
 	

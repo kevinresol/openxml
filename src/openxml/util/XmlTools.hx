@@ -4,6 +4,7 @@ import format.zip.Tools;
 import haxe.crypto.Crc32;
 import haxe.io.Bytes;
 using haxe.xml.Printer;
+using openxml.util.XmlTools;
 
 /**
  * ...
@@ -12,11 +13,20 @@ using haxe.xml.Printer;
 class XmlTools
 {
 
-	public static function addElement(xml:Xml, name:String, ?text:String):Xml 
+	public static function addElement(xml:Xml, name:String, ?text:String, ?attr:Dynamic):Xml 
 	{
 		var e = Xml.createElement(name);
 		xml.addChild(e);
-		if (text != null && text != "") setInnerText(e, text);
+		
+		if (text != null && text != "") 
+			e.setInnerText(text);
+		
+		if (attr != null)
+		{
+			for (a in Reflect.fields(attr))
+				xml.setAttr(a, Reflect.field(attr, a));
+		}
+		
 		return e;
 	}
 	
@@ -35,6 +45,11 @@ class XmlTools
 	public static inline function setInnerText(xml:Xml, text:String):Void
 	{
 		xml.addChild(Xml.createPCData(text));
+	}
+	
+	public static inline function setAttr(xml:Xml, name:String, value:Dynamic):Void
+	{
+		xml.set(name, Std.string(value));
 	}
 	
 	public static function toEntry(object:IXml, fileName:String):Entry

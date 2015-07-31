@@ -1,5 +1,6 @@
 package;
 
+import openxml.spreadsheet.style.Font;
 import openxml.spreadsheet.Workbook;
 import openxml.spreadsheet.Writer;
 import sys.io.File;
@@ -28,7 +29,11 @@ class Spreadsheet
 		cell.content = CString("Same string value");
 		cell.clearContent();
 		
-		ws.getCell(4, 4).content = CFormula("A1+A2");
+		var cell = ws.getCell(4, 4);
+		cell.content = CFormula("A1+A2");
+		var font = wb.styles.fonts.addFont();
+		font.size = 50;
+		cell.format.font = font;
 		ws.getCell(4, 5).content = CNumber(1.262234936);
 		
 		var f = File.write('output.xlsx', true);

@@ -1,4 +1,5 @@
 package openxml.spreadsheet;
+import openxml.spreadsheet.style.Styles;
 import openxml.util.IXml;
 
 using openxml.util.XmlTools;
@@ -10,16 +11,18 @@ class Workbook implements IXml
 {
 	public var worksheets:Array<Worksheet>;
 	public var relationships:Relationships;
+	public var styles:Styles;
 	
 	public function new() 
 	{
 		worksheets = [];
 		relationships = new Relationships();
+		styles = new Styles();
 	}
 	
 	public function addWorksheet(name:String):Worksheet
 	{
-		var ws = new Worksheet(name);
+		var ws = new Worksheet(this, name);
 		worksheets.push(ws);
 		ws.id = worksheets.length;
 		relationships.add(ws, RTWorksheet, 'worksheets/sheet${ws.id}.xml');

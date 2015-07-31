@@ -37,6 +37,7 @@ class Writer
 		contentTypes.addPart("/docProps/app.xml", CTExtendedProperties);
 		contentTypes.addPart('/xl/workbook.xml', CTWorkbook);
 		contentTypes.addPart('/xl/sharedStrings.xml', CTSharedStrings);
+		contentTypes.addPart('/xl/styles.xml', CTStyles);
 		
 		for (ws in workbook.worksheets)
 		{
@@ -49,12 +50,14 @@ class Writer
 		relationships.add(workbook, RTOfficeDocument, "xl/workbook.xml");
 		
 		workbook.relationships.add(SharedStrings.instance, RTSharedStrings, "sharedStrings.xml");
+		workbook.relationships.add(workbook.styles, RTStyles, "styles.xml");
 		
 		entries.add(relationships.toEntry('_rels/.rels'));
 		entries.add(contentTypes.toEntry('[Content_Types].xml'));
 		entries.add(core.toEntry('docProps/core.xml'));
 		entries.add(app.toEntry('docProps/app.xml'));
 		entries.add(workbook.toEntry('xl/workbook.xml'));
+		entries.add(workbook.styles.toEntry('xl/styles.xml'));
 		entries.add(workbook.relationships.toEntry('xl/_rels/workbook.xml.rels'));
 		entries.add(SharedStrings.instance.toEntry('xl/sharedStrings.xml'));
 		

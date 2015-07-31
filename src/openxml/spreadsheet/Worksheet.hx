@@ -10,13 +10,15 @@ using openxml.util.XmlTools;
  */
 class Worksheet implements IXml
 {
+	public var parent(default, null):Workbook;
 	public var name:String;
 	public var id:Int;
 	
 	var cells:Map<A1Reference, Cell>;
 	
-	public function new(name:String) 
+	public function new(workbook:Workbook, name:String) 
 	{
+		parent = workbook;
 		this.name = name;
 		cells = new Map();
 	}
@@ -71,7 +73,7 @@ class Worksheet implements IXml
 	{
 		var a1ref = A1Reference.create(row, col);
 		if (!cells.exists(a1ref))
-			cells[a1ref] = new Cell(row, col);
+			cells[a1ref] = new Cell(this, row, col);
 		
 		return cells[a1ref];
 	}

@@ -1,4 +1,5 @@
 package openxml.spreadsheet;
+import openxml.spreadsheet.style.Format.CellFormat;
 import openxml.util.IXml;
 using openxml.util.XmlTools;
 /**
@@ -7,15 +8,18 @@ using openxml.util.XmlTools;
  */
 class Cell implements IXml
 {
+	public var parent(default, null):Worksheet;
 	public var content:CellContent;
 	public var row:Int;
 	public var col:Int;
 	public var address:A1Reference;
 	public var dataType:DataType;
-
+	public var format(get, null):CellFormat;
 	
-	public function new(row:Int, col:Int) 
+	
+	public function new(worksheet:Worksheet, row:Int, col:Int) 
 	{
+		parent = worksheet;
 		this.row = row;
 		this.col = col;
 		address = A1Reference.create(row, col);
@@ -50,7 +54,16 @@ class Cell implements IXml
 				c.addElement('v', Std.string(index));
 		}
 		
+		if (format != null)
+			c.setAttr('s', format.id);
+		
 		return c;
+	}
+	
+	private inline function get_format()
+	{
+		if (format == null) format = cast parent.parent.styles.cellFormats.addFormat();
+		return format;
 	}
 }
 
