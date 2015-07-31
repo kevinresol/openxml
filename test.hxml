@@ -1,0 +1,9 @@
+-cp src
+-cp test
+-lib format
+
+-main Main
+-neko bin/test.n
+
+-cmd cd bin
+-cmd neko test.n
