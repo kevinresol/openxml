@@ -30,7 +30,8 @@ class Fonts extends XmlArray<Font>
 class Font implements IXml implements IXmlArrayItem
 {
 	public var bold:Bool = false;
-	public var size:Int = 12;
+	public var italic:Bool = false;
+	public var size:Int = 8;
 	public var family:Int = 0;
 	public var name:String = "Arial";
 	
@@ -46,6 +47,7 @@ class Font implements IXml implements IXmlArrayItem
 		var xml = Xml.createElement('font');
 		
 		if (bold) xml.addElement('b');
+		if (italic) xml.addElement('i');
 		
 		var xsize = xml.addElement('sz');
 		xsize.setAttr('val', size);
