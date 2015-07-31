@@ -26,8 +26,8 @@ class Worksheet implements IXml
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
 		
 		var worksheet = xml.addElement('worksheet');
-		worksheet.set('xmlns', XmlNameSpaces.SPREADSHEET_ML);
-		worksheet.set('xmlns:r', XmlNameSpaces.RELATION_SCHEMA);
+		worksheet.set('xmlns', XmlNameSpaces.spreadsheetml.MAIN);
+		worksheet.set('xmlns:r', XmlNameSpaces.officeDocument.RELATIONSHIPS);
 		
 		
 		

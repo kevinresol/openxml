@@ -38,8 +38,8 @@ class Workbook implements IXml
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
 		
 		var workbook = xml.addElement('workbook');
-		workbook.set('xmlns', XmlNameSpaces.SPREADSHEET_ML);
-		workbook.set('xmlns:r', XmlNameSpaces.RELATION_SCHEMA);
+		workbook.set('xmlns', XmlNameSpaces.spreadsheetml.MAIN);
+		workbook.set('xmlns:r', XmlNameSpaces.officeDocument.RELATIONSHIPS);
 		
 		var sheets = workbook.addElement('sheets');
 		

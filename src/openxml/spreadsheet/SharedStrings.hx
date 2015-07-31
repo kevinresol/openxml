@@ -48,7 +48,7 @@ class SharedStrings implements IXml
 		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
 		
 		var xsst = xml.addElement('sst');
-		xsst.set('xmlns', XmlNameSpaces.SPREADSHEET_ML);
+		xsst.set('xmlns', XmlNameSpaces.spreadsheetml.MAIN);
 		
 		var count = 0;
 		for (s in strings)
