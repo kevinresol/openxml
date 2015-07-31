@@ -9,13 +9,11 @@ using openxml.util.XmlTools;
  */
 class Fonts extends XmlArray<Font>
 {
-	public var defaultFont(default, null):Font;
 	
 	public function new()
 	{
 		super('fonts');
-		defaultFont = new Font();
-		push(defaultFont);
+		addFont();
 	}
 	
 	public function addFont():Font

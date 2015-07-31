@@ -34,7 +34,15 @@ class Spreadsheet
 		var font = wb.styles.fonts.addFont();
 		font.size = 50;
 		cell.format.font = font;
+		
+		var fill = wb.styles.fills.addFill();
+		fill.patternFill.type = PFDarkGray;
+		cell.format.fill = fill;
+		
 		ws.getCell(4, 5).content = CNumber(1.262234936);
+		var fill = wb.styles.fills.addFill();
+		fill.patternFill.type = PFSolid(0xffff0000);
+		ws.getCell(4, 5).format.fill = fill;
 		
 		var f = File.write('output.xlsx', true);
 		var w = new Writer(f);

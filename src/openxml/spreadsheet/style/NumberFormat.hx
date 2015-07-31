@@ -9,12 +9,11 @@ using openxml.util.XmlTools;
  */
 class NumberFormats extends XmlArray<NumberFormat>
 {
-	public var defaultNumberFormat(default, null):NumberFormat;
 	
 	public function new()
 	{
 		super('numberFormats');
-		defaultNumberFormat = addNumberFormat();
+		addNumberFormat();
 	}
 	
 	public function addNumberFormat():NumberFormat

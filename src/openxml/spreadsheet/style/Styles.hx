@@ -37,6 +37,7 @@ class Styles implements IXml
 	public function toXml():Xml 
 	{
 		var xml = Xml.createDocument();
+		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
 		
 		var xss = xml.addElement('styleSheet');
 		xss.set('xmlns', XmlNameSpaces.spreadsheetml.MAIN);

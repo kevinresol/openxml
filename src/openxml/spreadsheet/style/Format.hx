@@ -36,7 +36,6 @@ class FormattingRecords extends Formats
 		
 		defaultFormat = new Format();
 		push(defaultFormat);
-		defaultFormat.font = parent.fonts.defaultFont;
 	}
 }
 
@@ -103,6 +102,10 @@ class CellFormat extends Format
 	override public function toXml():Xml 
 	{
 		var xml = super.toXml();
+		if(border != null) xml.setAttr('applyBorder', 1);
+		if(fill != null) xml.setAttr('applyFill', 1);
+		if(font != null) xml.setAttr('applyFont', 1);
+		if(numberFormat != null) xml.setAttr('applyNumberFormat', 1);
 		
 		xml.setAttr('xfId', format.id);
 		

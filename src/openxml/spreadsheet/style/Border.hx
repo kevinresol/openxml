@@ -7,12 +7,12 @@ using openxml.util.XmlTools;
  */
 class Borders extends XmlArray<Border>
 {
-	public var defaultBorder(default, null):Border;
 	
 	public function new()
 	{
 		super('borders');
-		defaultBorder = addBorder();
+		
+		addBorder();
 	}
 	
 	public function addBorder():Border
