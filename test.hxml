@@ -2,8 +2,10 @@
 -cp test
 -lib format
 
--main Main
--neko bin/test.n
+--each
+-main Spreadsheet
+-neko bin/spreadsheet.n
 
-#-cmd cd bin
-#-cmd neko test.n
+--next
+-main Wordprocessing
+-neko bin/wordprocessing.n

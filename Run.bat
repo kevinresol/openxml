@@ -1,4 +1,5 @@
 @echo off
 cd bin
-neko test.n
+neko spreadsheet.n
+neko wordprocessing.n
 pause
