@@ -1,6 +1,7 @@
 package openxml.spreadsheet;
 import openxml.spreadsheet.Cell.A1Reference;
 import openxml.util.IXml;
+import openxml.XmlNameSpaces;
 
 using openxml.util.XmlTools;
 /**

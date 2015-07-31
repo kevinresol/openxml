@@ -1,4 +1,4 @@
-package openxml.spreadsheet;
+package openxml;
 import openxml.util.IXml;
 using openxml.util.XmlTools;
 /**
@@ -51,11 +51,12 @@ class Relationships implements IXml
 @:enum
 abstract RelationshipType(String) to String
 {
-	var RTWorksheet = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet";
-	var RTExtendedProperties = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties";
-	var RTCoreProperties = "http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties";
-	var RTOfficeDocument = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument";
-	var RTSharedStrings = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings";
+	var RTCoreProperties 		= "http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties";
+	
+	var RTWorksheet 			= "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet";
+	var RTExtendedProperties 	= "http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties";
+	var RTOfficeDocument 		= "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument";
+	var RTSharedStrings 		= "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings";
 }
 
 typedef Relationship =

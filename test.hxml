@@ -5,5 +5,5 @@
 -main Main
 -neko bin/test.n
 
--cmd cd bin
--cmd neko test.n
+#-cmd cd bin
+#-cmd neko test.n

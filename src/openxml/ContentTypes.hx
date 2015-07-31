@@ -51,17 +51,17 @@ class ContentTypes implements IXml
 @:enum 
 abstract ContentType(String) to String
 {
-	var CTXml = "application/xml";
+	var CTXml 					= "application/xml";
 	
-	var CTRelationships = "application/vnd.openxmlformats-package.relationships+xml";
-	var CTCoreProperties = "application/vnd.openxmlformats-package.core-properties+xml";
+	var CTRelationships 		= "application/vnd.openxmlformats-package.relationships+xml";
+	var CTCoreProperties 		= "application/vnd.openxmlformats-package.core-properties+xml";
 	
-	var CTExtendedProperties = "application/vnd.openxmlformats-officedocument.extended-properties+xml";
-	var CTTheme = "application/vnd.openxmlformats-officedocument.theme+xml";
+	var CTExtendedProperties 	= "application/vnd.openxmlformats-officedocument.extended-properties+xml";
+	var CTTheme 				= "application/vnd.openxmlformats-officedocument.theme+xml";
 	
-	var CTWorkbook = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml";
-	var CTWorksheet = "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml";
-	var CTSharedStrings = "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml";
-	var CTStyles = "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml";
+	var CTWorkbook 				= "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml";
+	var CTWorksheet 			= "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml";
+	var CTSharedStrings			= "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml";
+	var CTStyles 				= "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml";
 }
 

@@ -3,10 +3,12 @@ import format.zip.Tools;
 import haxe.crypto.Crc32;
 import haxe.io.Bytes;
 import haxe.io.Output;
-import haxe.zip.Writer in ZipWriter;
 import haxe.zip.Entry;
-import openxml.spreadsheet.ContentTypes;
-import openxml.spreadsheet.Relationships;
+import haxe.zip.Writer in ZipWriter;
+import openxml.ContentTypes;
+import openxml.CoreProperties;
+import openxml.ExtendedProperties;
+import openxml.Relationships;
 import openxml.util.IXml;
 
 using openxml.util.XmlTools;
@@ -29,7 +31,7 @@ class Writer
 		var zipWriter = new ZipWriter(o);
 		var entries = new List();
 		var core = new CoreProperties();
-		var app = new ExtendedProperties();
+		var app = new ExtendedProperties(AppExcel);
 		var contentTypes = new ContentTypes();
 		var relationships = new Relationships();
 		

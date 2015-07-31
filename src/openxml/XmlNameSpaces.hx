@@ -1,4 +1,4 @@
-package openxml.spreadsheet;
+package openxml;
 
 /**
  * ...
@@ -24,4 +24,6 @@ private class OfficeDocument
 private class Package
 {
 	public static inline var RELATIONSHIPS = 'http://schemas.openxmlformats.org/package/2006/relationships';
+	public static inline var CONTENT_TYPES = 'http://schemas.openxmlformats.org/package/2006/content-types';
+	
 }
