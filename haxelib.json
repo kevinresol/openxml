@@ -6,5 +6,8 @@
 	"description": "A Haxe implemention of Office Open XML",
 	"version": "0.0.1",
 	"classPath": "src",
-	"releasenote": "Alpha"
+	"releasenote": "Alpha",
+	"dependencies": {
+		"format": ""
+	}
 }
