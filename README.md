@@ -39,3 +39,15 @@ Check out the code samples in the "test" directory.
 ### OpenXML Specs
 
 http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-376,%20Fourth%20Edition,%20Part%201%20-%20Fundamentals%20And%20Markup%20Language%20Reference.zip
+
+
+### Running the tests
+
+Copy `System.Xml.dll` and `System.Xml.Linq.dll` from .NET 4.0 to `<hxcs-path>/netlib/net-40`
+Then run the following:
+```
+haxe validator.hxml
+haxelib install travix
+haxelib run travix install
+haxelib run travix neko
+```

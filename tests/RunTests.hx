@@ -1,10 +1,17 @@
-package ;
+package;
+
+import haxe.unit.TestRunner;
 
 class RunTests {
 
   static function main() {
-    travix.Logger.println('it works');
-    travix.Logger.exit(0); // make sure we exit properly, which is necessary on some targets, e.g. flash & (phantom)js
+    
+    var runner = new TestRunner();
+    runner.add(new TestWordprocessing());
+    
+    travix.Logger.exit(runner.run() ? 0 : 500);
   }
+  
+  
   
 }

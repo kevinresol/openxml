@@ -6,5 +6,3 @@
 
 -net-lib sdk/DocumentFormat.OpenXml/bin/Release/DocumentFormat.OpenXml.dll
 -net-lib sdk/System.IO.Packaging/bin/Release/System.IO.Packaging.dll
--net-lib /Library/Frameworks/Mono.framework/Versions/4.0.4/lib/mono/4.0/System.Xml.dll
--net-lib /Library/Frameworks/Mono.framework/Versions/4.0.4/lib/mono/4.0/System.Xml.Linq.dll
