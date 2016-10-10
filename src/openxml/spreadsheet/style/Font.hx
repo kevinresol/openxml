@@ -55,8 +55,8 @@ class Font implements IXml implements IXmlArrayItem
 		var xfamily = xml.addElement('family');
 		xfamily.setAttr('val', family);
 		
-		var xname = xml.addElement('name');
-		xname.setAttr('val', name);
+		// var xname = xml.addElement('name');
+		// xname.setAttr('val', name);
 		
 		return xml;
 	}

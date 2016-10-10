@@ -17,6 +17,6 @@ class TestWordprocessing extends TestCase {
         w.write(doc);
         f.close();
         
-        assertEquals(0, Sys.command('bin/validator/bin/Validator.exe', [path]));
+        assertEquals(0, Sys.command('bin/validator/bin/Validator.exe', ['wordprocessing', path]));
     }
 }
