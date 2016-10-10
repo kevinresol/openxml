@@ -44,7 +44,7 @@ class TestSpreadsheet extends TestCase {
 		w.write(wb);
 		f.close();
 		
-		assertEquals(0, Sys.command('bin/validator/bin/Validator.exe', ['spreadsheet', path]));
+		assertEquals(0, RunTests.runValidator('spreadsheet', path));
 	}
 	
 }

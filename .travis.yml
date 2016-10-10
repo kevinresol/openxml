@@ -5,7 +5,7 @@ language: haxe
 
 os:
   - linux
-  - osx
+  # - osx
   
 haxe:
   - "3.2.1"
@@ -17,16 +17,34 @@ matrix:
     
 install:
   - haxelib install travix
+  - haxelib install hxcs
   - haxelib run travix install
+  - wget -q -O - http://archive.getdeb.net/getdeb-archive.key | sudo apt-key add -
+  - sudo sh -c 'echo "deb http://archive.getdeb.net/ubuntu trusty-getdeb games" >> /etc/apt/sources.list.d/getdeb.list'
+  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+  - echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
+  - sudo apt-get update
+  - sudo apt-get install -y nuget mono-complete
+  # - sudo mozroots --import --machine --sync
+  - yes | sudo certmgr -ssl -m https://go.microsoft.com
+  - yes | sudo certmgr -ssl -m https://nugetgallery.blob.core.windows.net
+  - yes | sudo certmgr -ssl -m https://nuget.org
+  
+before_script:
+  - export HXCS_PATH=$(haxelib path hxcs | head -n 1)
+  - cp lib/System.Xml.Linq.dll $HXCS_PATH/netlib/net-40/
+  - cp lib/System.Xml.dll $HXCS_PATH/netlib/net-40/
+  - cd sdk && ./build.open-xml-sdk.sh || true && cd ..
+  - haxe validator.hxml
 
 script:
-  - haxelib run travix interp
+  # - haxelib run travix interp
   - haxelib run travix neko
-  - haxelib run travix python
-  - haxelib run travix node
-  - haxelib run travix js
-  - haxelib run travix flash
-  - haxelib run travix java
-  - haxelib run travix cpp
-  - haxelib run travix cs
-  - haxelib run travix php
+  # - haxelib run travix python
+  # - haxelib run travix node
+  # - haxelib run travix js
+  # - haxelib run travix flash
+  # - haxelib run travix java
+  # - haxelib run travix cpp
+  # - haxelib run travix cs
+  # - haxelib run travix php
