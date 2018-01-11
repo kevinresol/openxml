@@ -14,9 +14,9 @@ class ExtendedProperties extends Document implements IXml {
 			new Element('Properties')
 				.setAttribute('xmlns', "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties")
 				.setAttribute('xmlns:vt', "http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes")
-				.add(new Element('Application').add(new PCData(application)))
-				.add(new Element('DocSecurity').add(new PCData('0')))
-				.add(new Element('ScaleCrop').add(new PCData('false')))
+				.add(new Element('Application').addText(application))
+				.add(new Element('DocSecurity').addText('0'))
+				.add(new Element('ScaleCrop').addText('false'))
 		);
 	}
 }

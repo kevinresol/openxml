@@ -1,13 +1,14 @@
 package openxml.spreadsheet;
+
+import xml.*;
 import openxml.spreadsheet.style.Format.CellFormat;
 import openxml.util.IXml;
-using openxml.util.XmlTools;
+
 /**
  * ...
  * @author Kevin
  */
-class Cell implements IXml
-{
+class Cell implements IXml {
 	public var parent(default, null):Worksheet;
 	public var content:CellContent;
 	public var row:Int;
@@ -17,51 +18,46 @@ class Cell implements IXml
 	public var format(get, null):CellFormat;
 	
 	
-	public function new(worksheet:Worksheet, row:Int, col:Int) 
-	{
+	public function new(worksheet:Worksheet, row:Int, col:Int) {
 		parent = worksheet;
 		this.row = row;
 		this.col = col;
 		address = A1Reference.create(row, col);
 	}
 	
-	public function clearContent()
-	{
+	public function clearContent() {
 		content = null;
 	}
 	
-	public function toXml():Xml 
-	{
+	public function toXml():Xml  {
 		if (content == null) return null;
 		
-		var c = Xml.createElement('c');
-		c.set('r', address);
+		var c = new Element('c')
+			.setAttribute('r', address);
 		
-		switch (content) 
-		{
+		switch content {
 			case CBool(value): 
-				c.set('t', DTBool);
-				c.addElement('v', Std.string(value));
+				c.setAttribute('t', DTBool)
+				 .add(new Element('v').addText(Std.string(value)));
 			case CNumber(value): 
-				c.set('t', DTNumber);
-				c.addElement('v', Std.string(value));
+				c.setAttribute('t', DTNumber)
+				 .add(new Element('v').addText(Std.string(value)));
 			case CFormula(formula): 
-				c.set('t', DTString);
-				c.addElement('f', Std.string(formula));
+				c.setAttribute('t', DTString)
+				 .add(new Element('f').addText(Std.string(formula)));
 			case CString(value): 
 				var index = SharedStrings.instance.addString(value);
-				c.set('t', DTSharedString);
-				c.addElement('v', Std.string(index));
+				c.setAttribute('t', DTSharedString)
+				 .add(new Element('v').addText(Std.string(index)));
 		}
 		
 		if (format != null)
-			c.setAttr('s', format.id);
+			c.setAttribute('s', Std.string(format.id));
 		
 		return c;
 	}
 	
-	private inline function get_format()
-	{
+	private inline function get_format() {
 		if (format == null) format = cast parent.parent.styles.cellFormats.addFormat();
 		return format;
 	}

@@ -51,10 +51,7 @@ class SharedStrings implements IXml {
 			count += s.count;
 			doc.root.add(
 				new Element('si')
-					.add(
-						new Element('t')
-							.add(new PCData(s.value))
-					)
+					.add(new Element('t').addText(s.value))
 			);
 		}
 		
