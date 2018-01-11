@@ -1,38 +1,28 @@
 package openxml;
 
+import xml.*;
 import openxml.util.IXml;
-using openxml.util.XmlTools;
+
 /**
  * ...
  * @author Kevin
  */
-class ExtendedProperties implements IXml
+class ExtendedProperties extends Document implements IXml
 {
 	var application:Application;
 	
-	public function new(application:Application) 
-	{
+	public function new(application:Application) {
 		this.application = application;
+		super(
+			new ProcessingInstruction('xml version="1.0" encoding="UTF-8"'),
+			new Element('Properties')
+				.setAttribute('xmlns', "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties")
+				.setAttribute('xmlns:vt', "http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes")
+				.add(new Element('Application').add(new PCData(application)))
+				.add(new Element('DocSecurity').add(new PCData('0')))
+				.add(new Element('ScaleCrop').add(new PCData('false')))
+		);
 	}
-	
-	public function toXml():Xml 
-	{
-		var xml = Xml.createDocument();
-		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
-		
-		var p = xml.addElement('Properties');
-		p.set('xmlns', "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties");
-		p.set('xmlns:vt', "http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes");
-		
-		p.addElement('Application', application);
-		p.addElement('DocSecurity', '0');
-		p.addElement('ScaleCrop', 'false');
-		
-		//var headingPairs = p.addElement('HeadingPairs')
-		
-		return xml;
-	}
-	
 }
 
 @:enum
