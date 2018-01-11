@@ -1,50 +1,40 @@
 package openxml;
+
+import xml.*;
 import openxml.util.IXml;
 
-using openxml.util.XmlTools;
 /**
  * ...
  * @author Kevin
  */
-class ContentTypes implements IXml
-{
-	var overrides:Array<{partName:String, contentType:ContentType}>;
-	public function new()
-	{
-		overrides = [];
+class ContentTypes extends Document implements IXml {
+	
+	public function new() {
+		super(
+			new ProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"'),
+			new Element('Types')
+				.setAttribute('xmlns', XmlNameSpaces.pack.CONTENT_TYPES)
+				.setAttribute('xmlns:xsd', "http://www.w3.org/2001/XMLSchema")
+				.setAttribute('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance")
+				.add(
+					new Element('Default')
+						.setAttribute('Extension', 'rels')
+						.setAttribute('ContentType', CTRelationships)
+				)
+				.add(
+					new Element('Default')
+						.setAttribute('Extension', 'xml')
+						.setAttribute('ContentType', CTXml)
+				)
+		);
 	}
 	
-	public function addPart(partName:String, contentType:ContentType)
-	{
-		overrides.push({partName:partName, contentType:contentType});
-	}
-	
-	public function toXml():Xml 
-	{
-		var xml = Xml.createDocument();
-		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
-		
-		var types = xml.addElement('Types');
-		types.set('xmlns', XmlNameSpaces.pack.CONTENT_TYPES); 
-		types.set('xmlns:xsd', "http://www.w3.org/2001/XMLSchema");
-		types.set('xmlns:xsi', "http://www.w3.org/2001/XMLSchema-instance");
-		
-		var d = types.addElement('Default');
-		d.set('Extension', 'rels');
-		d.set('ContentType', CTRelationships);
-		
-		var d = types.addElement('Default');
-		d.set('Extension', 'xml');
-		d.set('ContentType', CTXml);
-		
-		for (o in overrides)
-		{
-			var xo = types.addElement('Override');
-			xo.set('PartName', o.partName);
-			xo.set('ContentType', o.contentType);
-		}
-		
-		return xml;
+	public function addPart(partName:String, contentType:ContentType) {
+		root.add(
+			new Element('Override')
+				.setAttribute('PartName', partName)
+				.setAttribute('ContentType', contentType)
+		);
 	}
 }
 
