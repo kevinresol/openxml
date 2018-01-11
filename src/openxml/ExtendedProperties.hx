@@ -7,12 +7,8 @@ import openxml.util.IXml;
  * ...
  * @author Kevin
  */
-class ExtendedProperties extends Document implements IXml
-{
-	var application:Application;
-	
+class ExtendedProperties extends Document implements IXml {
 	public function new(application:Application) {
-		this.application = application;
 		super(
 			new ProcessingInstruction('xml version="1.0" encoding="UTF-8"'),
 			new Element('Properties')
@@ -26,8 +22,7 @@ class ExtendedProperties extends Document implements IXml
 }
 
 @:enum
-abstract Application(String) to String
-{
+abstract Application(String) to String {
 	var AppExcel = 'Microsoft Excel';
 	var AppWord = 'Microsoft Office Word';
 }

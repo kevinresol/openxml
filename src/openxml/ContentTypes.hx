@@ -39,8 +39,7 @@ class ContentTypes extends Document implements IXml {
 }
 
 @:enum 
-abstract ContentType(String) to String
-{
+abstract ContentType(String) to String {
 	var CTXml 					= "application/xml";
 	
 	var CTRelationships 		= "application/vnd.openxmlformats-package.relationships+xml";

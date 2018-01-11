@@ -1,7 +1,7 @@
 {
-    "version": "0.1.0",
+    "version": "2.0.0",
     "command": "haxe",
-    "args": ["validator.hxml", "--times"],
+    "args": ["build.hxml"],
     "problemMatcher": {
         "owner": "haxe",
         "pattern": {
@@ -14,5 +14,18 @@
             "severity": 6,
             "message": 7
         }
-    }
+    },
+    "tasks": [
+        {
+            "type": "hxml",
+            "file": "build.hxml",
+            "problemMatcher": [
+                "$haxe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
 }
