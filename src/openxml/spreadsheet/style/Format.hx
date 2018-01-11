@@ -1,37 +1,33 @@
 package openxml.spreadsheet.style;
+
+import xml.*;
 import haxe.CallStack;
 import openxml.util.IXml;
 import openxml.util.XmlArray;
 
-using openxml.util.XmlTools;
 /**
  * ...
  * @author ...
  */
-class Formats extends XmlArray<Format>
-{
+class Formats extends XmlArray<Format> {
 	var parent:Styles;
 	
-	public function new(parent:Styles, elementName:String)
-	{
+	public function new(parent:Styles, elementName:String) {
 		super(elementName);
 		this.parent = parent;
 	}
 	
-	public function addFormat():Format
-	{
+	public function addFormat():Format {
 		var format = new Format();
 		push(format);
 		return format;
 	}
 }
 
-class FormattingRecords extends Formats
-{
+class FormattingRecords extends Formats {
 	public var defaultFormat(default, null):Format;
 	
-	public function new(styles:Styles)
-	{
+	public function new(styles:Styles) {
 		super(styles, 'cellStyleXfs');
 		
 		defaultFormat = new Format();
@@ -39,18 +35,15 @@ class FormattingRecords extends Formats
 	}
 }
 
-class CellFormats extends Formats
-{
+class CellFormats extends Formats {
 	public var defaultCellFormat(default, null):CellFormat;
 	
-	public function new(styles:Styles)
-	{
+	public function new(styles:Styles) {
 		super(styles, 'cellXfs');
 		defaultCellFormat = cast addFormat();
 	}
 	
-	override public function addFormat():Format
-	{
+	override public function addFormat():Format {
 		var format = new CellFormat();
 		format.format = parent.formattingRecords.defaultFormat;
 		push(format);
@@ -58,8 +51,7 @@ class CellFormats extends Formats
 	}
 }
 
-class Format implements IXml implements IXmlArrayItem
-{
+class Format implements IXml implements IXmlArrayItem {
 	public var applyAlignment:Bool;
 	public var applyBorder:Bool;
 	public var applyFill:Bool;
@@ -77,37 +69,30 @@ class Format implements IXml implements IXmlArrayItem
 	
 	public var id:Int;
 	
-	public function new()
-	{
+	public function new() {
 		
 	}
 	
-	public function toXml():Xml 
-	{
-		var xxf = Xml.createElement('xf');
-		
-		xxf.setAttr('borderId', border == null ? 0 : border.id);
-		xxf.setAttr('fillId', fill == null ? 0 : fill.id);
-		xxf.setAttr('fontId', font == null ? 0 : font.id);
-		xxf.setAttr('numFmtId', numberFormat == null ? 0 : numberFormat.id);
-		
-		return xxf;
+	public function toXml():Xml  {
+		return new Element('xf')
+			.setAttribute('borderId', border == null ? '0' : Std.string(border.id))
+			.setAttribute('fillId', fill == null ? '0' : Std.string(fill.id))
+			.setAttribute('fontId', font == null ? '0' : Std.string(font.id))
+			.setAttribute('numFmtId', numberFormat == null ? '0' : Std.string(numberFormat.id));
 	}
 } 
 
-class CellFormat extends Format
-{
+class CellFormat extends Format {
 	public var format:Format;
 	
-	override public function toXml():Xml 
-	{
-		var xml = super.toXml();
-		if(border != null) xml.setAttr('applyBorder', 1);
-		if(fill != null) xml.setAttr('applyFill', 1);
-		if(font != null) xml.setAttr('applyFont', 1);
-		if(numberFormat != null) xml.setAttr('applyNumberFormat', 1);
+	override public function toXml():Xml  {
+		var xml:Element = cast super.toXml();
+		if(border != null) xml.setAttribute('applyBorder', '1');
+		if(fill != null) xml.setAttribute('applyFill', '1');
+		if(font != null) xml.setAttribute('applyFont', '1');
+		if(numberFormat != null) xml.setAttribute('applyNumberFormat', '1');
 		
-		xml.setAttr('xfId', format.id);
+		xml.setAttribute('xfId', Std.string(format.id));
 		
 		return xml;
 	}

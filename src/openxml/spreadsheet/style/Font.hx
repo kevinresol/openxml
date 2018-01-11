@@ -1,23 +1,21 @@
 package openxml.spreadsheet.style;
+
+import xml.*;
 import openxml.util.IXml;
 import openxml.util.XmlArray;
 
-using openxml.util.XmlTools;
 /**
  * ...
  * @author ...
  */
-class Fonts extends XmlArray<Font>
-{
+class Fonts extends XmlArray<Font> {
 	
-	public function new()
-	{
+	public function new() {
 		super('fonts');
 		addFont();
 	}
 	
-	public function addFont():Font
-	{
+	public function addFont():Font {
 		var font = new Font();
 		push(font);
 		return font;
@@ -27,8 +25,7 @@ class Fonts extends XmlArray<Font>
 }
 
 @:allow(openxml.spreadsheet)
-class Font implements IXml implements IXmlArrayItem
-{
+class Font implements IXml implements IXmlArrayItem {
 	public var bold:Bool = false;
 	public var italic:Bool = false;
 	public var size:Int = 8;
@@ -37,26 +34,28 @@ class Font implements IXml implements IXmlArrayItem
 	
 	public var id:Int;
 	
-	function new()
-	{
-		
-	}
+	function new() {}
 	
-	public function toXml():Xml
-	{
-		var xml = Xml.createElement('font');
+	public function toXml():Xml {
+		var xml = new Element('font');
 		
-		if (bold) xml.addElement('b');
-		if (italic) xml.addElement('i');
+		if (bold) xml.add(new Element('b'));
+		if (italic) xml.add(new Element('i'));
 		
-		var xsize = xml.addElement('sz');
-		xsize.setAttr('val', size);
+		xml
+			.add(
+				new Element('sz')
+					.setAttribute('val', Std.string(size))
+			)
+			.add(
+				new Element('family')
+					.setAttribute('val', Std.string(family))
+			);
 		
-		var xfamily = xml.addElement('family');
-		xfamily.setAttr('val', family);
-		
-		// var xname = xml.addElement('name');
-		// xname.setAttr('val', name);
+		// xml.add(
+		// 	new Element('name')
+		// 		.setAttribute('val', name)
+		// );
 		
 		return xml;
 	}
