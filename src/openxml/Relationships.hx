@@ -8,7 +8,7 @@ import openxml.util.IXml;
  * @author Kevin
  */
 class Relationships extends Document implements IXml {
-	var counter = 0;
+	var counter = 1;
 	
 	public function add(type:RelationshipType, target:String) {
 		root.add(
