@@ -1,5 +1,6 @@
 package openxml.spreadsheet.style;
 
+import xml.*;
 import openxml.spreadsheet.style.Border.Borders;
 import openxml.spreadsheet.style.Fill.Fills;
 import openxml.spreadsheet.style.Font.Fonts;
@@ -7,14 +8,12 @@ import openxml.spreadsheet.style.Format.CellFormats;
 import openxml.spreadsheet.style.Format.FormattingRecords;
 import openxml.spreadsheet.style.NumberFormat.NumberFormats;
 import openxml.util.IXml;
-using openxml.util.XmlTools;
 /**
  * ...
  * @author ...
  */
 @:allow(openxml.spreadsheet)
-class Styles implements IXml
-{
+class Styles implements IXml {
 	public var fonts:Fonts;
 	public var fills:Fills;
 	public var borders:Borders;
@@ -23,8 +22,7 @@ class Styles implements IXml
 	var formattingRecords:FormattingRecords;
 	var cellFormats:CellFormats;
 	
-	public function new() 
-	{
+	public function new() {
 		fonts = new Fonts();
 		fills = new Fills();
 		borders = new Borders();
@@ -34,22 +32,19 @@ class Styles implements IXml
 		cellFormats = new CellFormats(this);
 	}
 	
-	public function toXml():Xml 
-	{
-		var xml = Xml.createDocument();
-		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
-		
-		var xss = xml.addElement('styleSheet');
-		xss.set('xmlns', XmlNameSpaces.spreadsheetml.MAIN);
-		
-		xss.addChild(fonts.toXml());
-		xss.addChild(fills.toXml());
-		xss.addChild(borders.toXml());
-		//xss.addChild(numberFormats.toXml());
-		xss.addChild(formattingRecords.toXml());
-		xss.addChild(cellFormats.toXml());
-			
-		return xml;
+	public function toXml():Xml {
+		var doc = new Document(
+			new ProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"'),
+			new Element('styleSheet')
+				.setAttribute('xmlns', XmlNameSpaces.spreadsheetml.MAIN)
+				.add(fonts.toXml())
+				.add(fills.toXml())
+				.add(borders.toXml())
+				//.add(numberFormats.toXml())
+				.add(formattingRecords.toXml())
+				.add(cellFormats.toXml())
+		);
+		return doc.toXml();
 		
 	}
 }
