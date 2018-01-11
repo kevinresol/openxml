@@ -1,0 +1,4 @@
+# @install: lix --silent download "https://github.com/kevinresol/xml-writer/archive/0066feeba2676a2a4af07a643bdfcfb56d0fc469.tar.gz" into xml-writer/0.0.0/github/0066feeba2676a2a4af07a643bdfcfb56d0fc469
+-D xml-writer=0.0.0
+# -cp ${HAXESHIM_LIBCACHE}/xml-writer/0.0.0/github/0066feeba2676a2a4af07a643bdfcfb56d0fc469/src
+-cp ../xml-writer/src

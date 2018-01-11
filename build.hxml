@@ -1,6 +1,7 @@
 -cp src
 -cp test
 -lib format
+-lib xml-writer
 
 --each
 -main Spreadsheet
