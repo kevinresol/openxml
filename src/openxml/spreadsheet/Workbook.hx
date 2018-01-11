@@ -1,27 +1,24 @@
 package openxml.spreadsheet;
+
+import xml.*;
 import openxml.spreadsheet.style.Styles;
 import openxml.util.IXml;
-
-using openxml.util.XmlTools;
 /**
  * ...
  * @author Kevin
  */
-class Workbook implements IXml
-{
+class Workbook implements IXml {
 	public var worksheets:Array<Worksheet>;
 	public var relationships:Relationships;
 	public var styles:Styles;
 	
-	public function new() 
-	{
+	public function new() {
 		worksheets = [];
 		relationships = new Relationships();
 		styles = new Styles();
 	}
 	
-	public function addWorksheet(name:String):Worksheet
-	{
+	public function addWorksheet(name:String):Worksheet {
 		var ws = new Worksheet(this, name);
 		worksheets.push(ws);
 		ws.id = worksheets.length;
@@ -29,33 +26,34 @@ class Workbook implements IXml
 		return ws;
 	}
 	
-	public function getWorksheet(name:String):Worksheet
-	{
+	public function getWorksheet(name:String):Worksheet {
 		for (ws in worksheets) if (ws.name == name) return ws;
 		return null;
 	}
 	
-	public function toXml()
-	{
-		var xml = Xml.createDocument();
-		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
+	public function toXml() {
+		var doc = new Document(
+			new ProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"'),
+			new Element('workbook')
+				.setAttribute('xmlns', XmlNameSpaces.spreadsheetml.MAIN)
+				.setAttribute('xmlns:r', XmlNameSpaces.officeDocument.RELATIONSHIPS)
+		);
 		
-		var workbook = xml.addElement('workbook');
-		workbook.set('xmlns', XmlNameSpaces.spreadsheetml.MAIN);
-		workbook.set('xmlns:r', XmlNameSpaces.officeDocument.RELATIONSHIPS);
 		
-		var sheets = workbook.addElement('sheets');
+		var sheets = new Element('sheets');
+		doc.root.add(sheets);
 		
-		for (i in 0...worksheets.length)
-		{
+		for (i in 0...worksheets.length) {
 			var ws = worksheets[i];
 			var id = i + 1;
-			var sheet = sheets.addElement('sheet');
-			sheet.set('name', ws.name);
-			sheet.set('sheetId', '$id');
-			sheet.set('r:id', 'rId$id');
+			sheets.add(
+				new Element('sheet')
+					.setAttribute('name', ws.name)
+					.setAttribute('sheetId', '$id')
+					.setAttribute('r:id', 'rId$id')
+			);
 		}
 		
-		return xml;
+		return doc.toXml();
 	}
 }
