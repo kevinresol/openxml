@@ -63,16 +63,13 @@ class Cell implements IXml {
 	}
 }
 
-abstract A1Reference(String) to String
-{
-	public static inline function create(row:Int, col:Int):A1Reference
-	{
+abstract A1Reference(String) to String {
+	public static inline function create(row:Int, col:Int):A1Reference {
 		var address = columnNumToLetter(col) + (row + 1);
 		return new A1Reference(address);
 	}
 	
-	public static inline function createRange(row1:Int, col1:Int, row2:Int, col2:Int):A1Reference
-	{
+	public static inline function createRange(row1:Int, col1:Int, row2:Int, col2:Int):A1Reference {
 		if (row1 == row2 && col1 == col2) return create(row1, col1);
 		
 		var minR = row1;
@@ -86,13 +83,11 @@ abstract A1Reference(String) to String
 		return new A1Reference(columnNumToLetter(minC) + (minR + 1) + ":" + columnNumToLetter(maxC) + (maxR + 1));
 	}
 	
-	inline function new(ref:String) 
-	{
+	inline function new(ref:String) {
 		this = ref;
 	}
 	
-	static function columnNumToLetter(col:Int):String
-	{
+	static function columnNumToLetter(col:Int):String {
 		var d = col + 1;
 		var name = "";
 		var m = 0;
@@ -108,8 +103,7 @@ abstract A1Reference(String) to String
 }
 
 @:enum
-abstract DataType(String) to String
-{
+abstract DataType(String) to String {
 	var DTBool = 'b';
 	var DTError = 'e';
 	var DTInlineString = 'inlineStr';
@@ -118,8 +112,7 @@ abstract DataType(String) to String
 	var DTString = 'str'; // formula string
 }
 
-enum CellContent
-{
+enum CellContent {
 	CBool(value:Bool);
 	CNumber(value:Float);
 	CFormula(formula:String);
