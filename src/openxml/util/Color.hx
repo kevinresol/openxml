@@ -1,35 +1,32 @@
 package openxml.util;
 
-using openxml.util.XmlTools;
+import xml.*;
+
 /**
  * ...
  * @author ...
  */
-class Color implements IXml
-{
+class Color implements IXml {
 	public var auto:Null<Bool>;
 	public var argb:Null<Int>;
 	
 	var elementName:String;
 
-	public function new(elementName:String) 
-	{
+	public function new(elementName:String)  {
 		this.elementName = elementName;
 	}
 	
-	public function toXml():Xml
-	{
-		var xc = Xml.createElement(elementName);
+	public function toXml():Xml {
+		var xc = new Element(elementName);
 		
-		if (auto != null) xc.setAttr('auto', auto);
-		if (argb != null) xc.setAttr('rgb', StringTools.hex(argb));
+		if (auto != null) xc.setAttribute('auto', auto);
+		if (argb != null) xc.setAttribute('rgb', StringTools.hex(argb));
 		
 		return xc;
 	}
 	
 }
 
-enum ColorType
-{
+enum ColorType {
 	
 }

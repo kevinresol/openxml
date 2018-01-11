@@ -75,10 +75,10 @@ class Format implements IXml implements IXmlArrayItem {
 	
 	public function toXml():Xml  {
 		return new Element('xf')
-			.setAttribute('borderId', border == null ? '0' : Std.string(border.id))
-			.setAttribute('fillId', fill == null ? '0' : Std.string(fill.id))
-			.setAttribute('fontId', font == null ? '0' : Std.string(font.id))
-			.setAttribute('numFmtId', numberFormat == null ? '0' : Std.string(numberFormat.id));
+			.setAttribute('borderId', border == null ? 0 : border.id)
+			.setAttribute('fillId', fill == null ? 0 : fill.id)
+			.setAttribute('fontId', font == null ? 0 : font.id)
+			.setAttribute('numFmtId', numberFormat == null ? 0 : numberFormat.id);
 	}
 } 
 
@@ -92,7 +92,7 @@ class CellFormat extends Format {
 		if(font != null) xml.setAttribute('applyFont', '1');
 		if(numberFormat != null) xml.setAttribute('applyNumberFormat', '1');
 		
-		xml.setAttribute('xfId', Std.string(format.id));
+		xml.setAttribute('xfId', format.id);
 		
 		return xml;
 	}

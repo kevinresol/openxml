@@ -56,8 +56,8 @@ class SharedStrings implements IXml {
 		}
 		
 		doc.root
-			.setAttribute('count', Std.string(count))
-			.setAttribute('uniqueCount', Std.string(strings.length));
+			.setAttribute('count', count)
+			.setAttribute('uniqueCount', strings.length);
 		
 		return doc.toXml();
 	}

@@ -29,8 +29,7 @@ class Relationships extends Document implements IXml {
 }
 
 @:enum
-abstract RelationshipType(String) to String
-{
+abstract RelationshipType(String) to String to AttributeValue {
 	// common
 	var RTCoreProperties 		= "http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties";
 	
@@ -46,8 +45,7 @@ abstract RelationshipType(String) to String
 	
 }
 
-typedef Relationship =
-{
+typedef Relationship = {
 	object:IXml,
 	type:RelationshipType,
 	target:String,

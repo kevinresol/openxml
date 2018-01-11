@@ -25,7 +25,7 @@ class Row implements IXml {
 	
 	public function toXml():Xml {
 		var xr = new Element('row')
-			.setAttribute('r', Std.string(row + 1));
+			.setAttribute('r', row + 1);
 		
 		cells.sort(function(c1, c2) return c1.col - c2.col);
 		for (cell in cells) {

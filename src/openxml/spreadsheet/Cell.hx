@@ -52,7 +52,7 @@ class Cell implements IXml {
 		}
 		
 		if (format != null)
-			c.setAttribute('s', Std.string(format.id));
+			c.setAttribute('s', format.id);
 		
 		return c;
 	}
@@ -63,7 +63,7 @@ class Cell implements IXml {
 	}
 }
 
-abstract A1Reference(String) to String {
+abstract A1Reference(String) to String to AttributeValue {
 	public static inline function create(row:Int, col:Int):A1Reference {
 		var address = columnNumToLetter(col) + (row + 1);
 		return new A1Reference(address);
@@ -103,7 +103,7 @@ abstract A1Reference(String) to String {
 }
 
 @:enum
-abstract DataType(String) to String {
+abstract DataType(String) to String to AttributeValue {
 	var DTBool = 'b';
 	var DTError = 'e';
 	var DTInlineString = 'inlineStr';
