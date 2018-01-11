@@ -37,9 +37,9 @@ class Writer
 		contentTypes.addPart("/docProps/app.xml", CTExtendedProperties);
 		contentTypes.addPart('/word/document.xml', CTDocument);
 		
-		relationships.add(app, RTExtendedProperties, "docProps/app.xml");
-		relationships.add(core, RTCoreProperties, "docProps/core.xml");
-		relationships.add(document, RTOfficeDocument, "word/document.xml");
+		relationships.add(RTExtendedProperties, "docProps/app.xml");
+		relationships.add(RTCoreProperties, "docProps/core.xml");
+		relationships.add(RTOfficeDocument, "word/document.xml");
 		
 		entries.add(relationships.toEntry('_rels/.rels'));
 		entries.add(contentTypes.toEntry('[Content_Types].xml'));

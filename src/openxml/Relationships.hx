@@ -1,50 +1,30 @@
 package openxml;
+
+import xml.*;
 import openxml.util.IXml;
-using openxml.util.XmlTools;
+
 /**
  * ...
  * @author Kevin
  */
-class Relationships implements IXml
-{
-	var relationships:Array<Relationship>;
+class Relationships extends Document implements IXml {
+	var counter = 0;
 	
-	public function new() 
-	{
-		relationships = [];
+	public function add(type:RelationshipType, target:String) {
+		root.add(
+			new Element('Relationship')
+				.setAttribute('Id', 'rId${counter++}')
+				.setAttribute('Type', type)
+				.setAttribute('Target', target)
+		);
 	}
 	
-	public function add(object:IXml, type:RelationshipType, target:String)
-	{
-		if (get(object) == null)
-			relationships.push( { object:object, type:type, target:target } );
-	}
-	
-	public function get(object:IXml):Relationship
-	{
-		for (o in relationships) if (o.object == object) return o;
-		return null;
-	}
-	
-	public function toXml():Xml 
-	{
-		var xml = Xml.createDocument();
-		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8"');
-		
-		var xrs = xml.addElement('Relationships');
-		xrs.set('xmlns', XmlNameSpaces.pack.RELATIONSHIPS);
-		
-		for (i in 0...relationships.length)
-		{
-			var id = i + 1;
-			var r = relationships[i];
-			var xr = xrs.addElement('Relationship');
-			xr.set('Id', 'rId$id');
-			xr.set('Type', r.type);
-			xr.set('Target', r.target);
-		}
-		
-		return xml;
+	public function new() {
+		super(
+			new ProcessingInstruction('xml version="1.0" encoding="UTF-8"'),
+			new Element('Relationships')
+				.setAttribute('xmlns', XmlNameSpaces.pack.RELATIONSHIPS)
+		);
 	}
 }
 

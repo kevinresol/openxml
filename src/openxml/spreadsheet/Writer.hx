@@ -45,12 +45,12 @@ class Writer
 			contentTypes.addPart('/xl/worksheets/sheet${ws.id}.xml', CTWorksheet);
 		}
 		
-		relationships.add(app, RTExtendedProperties, "docProps/app.xml");
-		relationships.add(core, RTCoreProperties, "docProps/core.xml");
-		relationships.add(workbook, RTOfficeDocument, "xl/workbook.xml");
+		relationships.add(RTExtendedProperties, "docProps/app.xml");
+		relationships.add(RTCoreProperties, "docProps/core.xml");
+		relationships.add(RTOfficeDocument, "xl/workbook.xml");
 		
-		workbook.relationships.add(SharedStrings.instance, RTSharedStrings, "sharedStrings.xml");
-		workbook.relationships.add(workbook.styles, RTStyles, "styles.xml");
+		workbook.relationships.add(RTSharedStrings, "sharedStrings.xml");
+		workbook.relationships.add(RTStyles, "styles.xml");
 		
 		entries.add(relationships.toEntry('_rels/.rels'));
 		entries.add(contentTypes.toEntry('[Content_Types].xml'));

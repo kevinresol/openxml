@@ -25,7 +25,7 @@ class Workbook implements IXml
 		var ws = new Worksheet(this, name);
 		worksheets.push(ws);
 		ws.id = worksheets.length;
-		relationships.add(ws, RTWorksheet, 'worksheets/sheet${ws.id}.xml');
+		relationships.add(RTWorksheet, 'worksheets/sheet${ws.id}.xml');
 		return ws;
 	}
 	
