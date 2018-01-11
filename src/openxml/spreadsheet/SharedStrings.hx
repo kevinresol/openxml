@@ -1,25 +1,23 @@
 package openxml.spreadsheet;
 
+import xml.*;
 import openxml.util.IXml;
-using openxml.util.XmlTools;
+
 /**
  * ...
  * @author Kevin
  */
-class SharedStrings implements IXml
-{
+class SharedStrings implements IXml {
 	public static var instance:SharedStrings = new SharedStrings();
 	
 	var strings:Array<{value:String, count:Int}>;
 	var index:Int;
 	
-	function new() 
-	{
+	function new() {
 		strings = [];
 	}
 	
-	public function addString(str:String):Int
-	{
+	public function addString(str:String):Int {
 		var index = getIndex(str);
 		
 		if (index == -1) 
@@ -30,37 +28,40 @@ class SharedStrings implements IXml
 		return index;
 	}
 	
-	public function removeString(str:String)
-	{
+	public function removeString(str:String) {
 		var index = getIndex(str);
 		if (index != -1) strings[index].count --;
 	}
 	
-	public function getIndex(str:String):Int
-	{
+	public function getIndex(str:String):Int {
 		for (i in 0...strings.length) if (strings[i].value == str) return i;
 		return -1;
 	}
 	
-	public function toXml():Xml 
-	{
-		var xml = Xml.createDocument();
-		xml.addProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"');
+	public function toXml():Xml {
+		var doc = new Document(
+			new ProcessingInstruction('xml version="1.0" encoding="UTF-8" standalone="yes"'),
+			new Element('sst')
+				.setAttribute('xmlns', XmlNameSpaces.spreadsheetml.MAIN)
+		);
 		
-		var xsst = xml.addElement('sst');
-		xsst.set('xmlns', XmlNameSpaces.spreadsheetml.MAIN);
 		
 		var count = 0;
-		for (s in strings)
-		{
+		for (s in strings) {
 			count += s.count;
-			var xsi = xsst.addElement('si');
-			xsi.addElement('t', s.value);
+			doc.root.add(
+				new Element('si')
+					.add(
+						new Element('t')
+							.add(new PCData(s.value))
+					)
+			);
 		}
 		
-		xsst.set('count', Std.string(count));
-		xsst.set('uniqueCount', Std.string(strings.length));
+		doc.root
+			.setAttribute('count', Std.string(count))
+			.setAttribute('uniqueCount', Std.string(strings.length));
 		
-		return xml;
+		return doc.toXml();
 	}
 }
