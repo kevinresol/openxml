@@ -35,13 +35,13 @@ before_script:
   - cp lib/System.Xml.Linq.dll $HXCS_PATH/netlib/net-40/
   - cp lib/System.Xml.dll $HXCS_PATH/netlib/net-40/
   - cd sdk && ./build.open-xml-sdk.sh || true && cd ..
-  - haxe validator.hxml
+  - yarn run haxe validator.hxml
 
 script:
   # - haxelib run travix interp
   # - haxelib run travix neko
   # - haxelib run travix python
-  - haxelib run travix node
+  - yarn run travix node
   # - haxelib run travix js
   # - haxelib run travix flash
   # - haxelib run travix java
