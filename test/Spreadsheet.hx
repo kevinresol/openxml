@@ -45,7 +45,7 @@ class Spreadsheet
 		ws.getCell(4, 5).format.fill = fill;
 		
 		var w = new Writer(new archive.zip.NodeZip());
-		w.write(wb).pipeTo(tink.io.Sink.ofNodeStream('name', js.node.Fs.createWriteStream('out_node.xlsx')))
+		w.write(wb).pipeTo(tink.io.Sink.ofNodeStream('name', js.node.Fs.createWriteStream('output.xlsx')))
 			.handle(function(o) {
 				trace(o);
 				Sys.exit(0);

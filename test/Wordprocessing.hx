@@ -17,10 +17,12 @@ class Wordprocessing
 		var doc = new Document();
 		doc.body.addParagraph("My paragraph.");
 		
-		var f = File.write('output.docx', true);
-		var w = new Writer(f);
-		w.write(doc);
-		f.close();
+		var w = new Writer(new archive.zip.NodeZip());
+		w.write(doc).pipeTo(tink.io.Sink.ofNodeStream('name', js.node.Fs.createWriteStream('output.docx')))
+			.handle(function(o) {
+				trace(o);
+				Sys.exit(0);
+			});
 	}
 	
 }

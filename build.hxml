@@ -10,7 +10,7 @@
 # -neko bin/spreadsheet.n
 -js bin/spreadsheet.js
 
-# --next
-# -main Wordprocessing
+--next
+-main Wordprocessing
 # -neko bin/wordprocessing.n
-# -js bin/wordprocessing.js
+-js bin/wordprocessing.js

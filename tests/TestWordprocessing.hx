@@ -14,7 +14,7 @@ class TestWordprocessing {
 		var path = 'bin/output.docx';
 		
 		var w = new Writer(new archive.zip.NodeZip());
-		var path = 'bin/output.docs';
+		var path = 'bin/output.docx';
 		w.write(doc).pipeTo(tink.io.Sink.ofNodeStream('name', js.node.Fs.createWriteStream(path)))
 			.handle(function(o) {
 				asserts.assert(RunTests.runValidator('wordprocessing', path) == 0);
