@@ -9,6 +9,7 @@ class RunTests {
 		
 		Runner.run(TestBatch.make([
 			new TestSpreadsheet(),
+			new TestWordprocessing(),
 		])).handle(Runner.exit);
 	}
 	

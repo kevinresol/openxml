@@ -40,7 +40,7 @@ class TestSpreadsheet {
 		
 		
 		var w = new Writer(new archive.zip.NodeZip());
-		var path = 'bin/out_node.xlsx';
+		var path = 'bin/output.xlsx';
 		w.write(wb).pipeTo(tink.io.Sink.ofNodeStream('name', js.node.Fs.createWriteStream(path)))
 			.handle(function(o) {
 				asserts.assert(RunTests.runValidator('spreadsheet', path) == 0);
