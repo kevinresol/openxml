@@ -1,10 +1,9 @@
 package openxml.util;
-import format.zip.Data.Entry;
-import format.zip.Tools;
-import haxe.crypto.Crc32;
-import haxe.io.Bytes;
+import archive.Entry;
 using haxe.xml.Printer;
 using openxml.util.XmlTools;
+
+using tink.CoreApi;
 
 /**
  * ...
@@ -52,21 +51,13 @@ class XmlTools
 		xml.set(name, Std.string(value));
 	}
 	
-	public static function toEntry(object:IXml, fileName:String):Entry
-	{
-		var xmlString = object.toXml().print(false);
-		var data = Bytes.ofString(xmlString);
-		var e = {
-			fileName: fileName,
-			fileSize: data.length,
-			data: data,
-			fileTime: Date.now(),
-			compressed: false,
-			dataSize: data.length,
-			crc32: Crc32.make(data),
+	public static function toEntry(obj:IXml, path:String):Entry<Noise> {
+		var xml = obj.toXml().toString();
+		return {
+			name: path,
+			size: xml.length,
+			source: xml
 		}
-		Tools.compress(e, 9);
-		return e;
 	}
 	
 }

@@ -38,7 +38,7 @@ class Writer {
 		contentTypes.addPart('/xl/styles.xml', CTStyles);
 		
 		for (ws in workbook.worksheets) {
-			entries.push(toEntry(ws, 'xl/worksheets/sheet${ws.id}.xml'));
+			entries.push(ws.toEntry('xl/worksheets/sheet${ws.id}.xml'));
 			contentTypes.addPart('/xl/worksheets/sheet${ws.id}.xml', CTWorksheet);
 		}
 		
@@ -49,25 +49,17 @@ class Writer {
 		workbook.relationships.add(RTSharedStrings, "sharedStrings.xml");
 		workbook.relationships.add(RTStyles, "styles.xml");
 		
-		entries.push(toEntry(relationships, '_rels/.rels'));
-		entries.push(toEntry(contentTypes, '[Content_Types].xml'));
-		entries.push(toEntry(core, 'docProps/core.xml'));
-		entries.push(toEntry(app, 'docProps/app.xml'));
-		entries.push(toEntry(workbook, 'xl/workbook.xml'));
-		entries.push(toEntry(workbook.styles, 'xl/styles.xml'));
-		entries.push(toEntry(workbook.relationships, 'xl/_rels/workbook.xml.rels'));
-		entries.push(toEntry(SharedStrings.instance, 'xl/sharedStrings.xml'));
+		entries.push(relationships.toEntry('_rels/.rels'));
+		entries.push(contentTypes.toEntry('[Content_Types].xml'));
+		entries.push(core.toEntry('docProps/core.xml'));
+		entries.push(app.toEntry('docProps/app.xml'));
+		entries.push(workbook.toEntry('xl/workbook.xml'));
+		entries.push(workbook.styles.toEntry('xl/styles.xml'));
+		entries.push(workbook.relationships.toEntry('xl/_rels/workbook.xml.rels'));
+		entries.push(SharedStrings.instance.toEntry('xl/sharedStrings.xml'));
 		
 		return zip.pack(Stream.ofIterator(entries.iterator()));
 		// zipWriter.write(entries);
 	}
 	
-	function toEntry(obj:IXml, path:String):Entry<Noise> {
-		var xml = obj.toXml().toString();
-		return {
-			name: path,
-			size: xml.length,
-			source: xml
-		}
-	}
 }
