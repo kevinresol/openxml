@@ -1,33 +1,30 @@
 package openxml.spreadsheet;
-import format.zip.Tools;
-import haxe.crypto.Crc32;
-import haxe.io.Bytes;
-import haxe.io.Output;
-import haxe.zip.Entry;
-import haxe.zip.Writer in ZipWriter;
+
+import archive.*;
+import archive.zip.*;
 import openxml.ContentTypes;
 import openxml.CoreProperties;
 import openxml.ExtendedProperties;
 import openxml.Relationships;
 import openxml.util.IXml;
+import tink.streams.Stream;
 
 using openxml.util.XmlTools;
+using tink.io.Source;
+using tink.CoreApi;
+
 /**
  * ...
  * @author Kevin
  */
-class Writer
-{
-	var o:Output;
-	public function new(o:Output)
-	{
-		this.o = o;
+class Writer {
+	var zip:Zip;
+	public function new(zip) {
+		this.zip = zip;
 	}
 
-	public function write(workbook:Workbook) 
-	{
-		var zipWriter = new ZipWriter(o);
-		var entries = new List();
+	public function write(workbook:Workbook):RealSource {
+		var entries = [];
 		var core = new CoreProperties();
 		var app = new ExtendedProperties(AppExcel);
 		var contentTypes = new ContentTypes();
@@ -39,9 +36,8 @@ class Writer
 		contentTypes.addPart('/xl/sharedStrings.xml', CTSharedStrings);
 		contentTypes.addPart('/xl/styles.xml', CTStyles);
 		
-		for (ws in workbook.worksheets)
-		{
-			entries.add(ws.toEntry('xl/worksheets/sheet${ws.id}.xml'));
+		for (ws in workbook.worksheets) {
+			entries.push(toEntry(ws, 'xl/worksheets/sheet${ws.id}.xml'));
 			contentTypes.addPart('/xl/worksheets/sheet${ws.id}.xml', CTWorksheet);
 		}
 		
@@ -52,15 +48,25 @@ class Writer
 		workbook.relationships.add(RTSharedStrings, "sharedStrings.xml");
 		workbook.relationships.add(RTStyles, "styles.xml");
 		
-		entries.add(relationships.toEntry('_rels/.rels'));
-		entries.add(contentTypes.toEntry('[Content_Types].xml'));
-		entries.add(core.toEntry('docProps/core.xml'));
-		entries.add(app.toEntry('docProps/app.xml'));
-		entries.add(workbook.toEntry('xl/workbook.xml'));
-		entries.add(workbook.styles.toEntry('xl/styles.xml'));
-		entries.add(workbook.relationships.toEntry('xl/_rels/workbook.xml.rels'));
-		entries.add(SharedStrings.instance.toEntry('xl/sharedStrings.xml'));
+		entries.push(toEntry(relationships, '_rels/.rels'));
+		entries.push(toEntry(contentTypes, '[Content_Types].xml'));
+		entries.push(toEntry(core, 'docProps/core.xml'));
+		entries.push(toEntry(app, 'docProps/app.xml'));
+		entries.push(toEntry(workbook, 'xl/workbook.xml'));
+		entries.push(toEntry(workbook.styles, 'xl/styles.xml'));
+		entries.push(toEntry(workbook.relationships, 'xl/_rels/workbook.xml.rels'));
+		entries.push(toEntry(SharedStrings.instance, 'xl/sharedStrings.xml'));
 		
-		zipWriter.write(entries);
+		return zip.pack(Stream.ofIterator(entries.iterator()));
+		// zipWriter.write(entries);
+	}
+	
+	function toEntry(obj:IXml, path:String):Entry<Noise> {
+		var xml = obj.toXml().toString();
+		return {
+			name: path,
+			size: xml.length,
+			source: xml
+		}
 	}
 }

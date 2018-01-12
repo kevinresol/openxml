@@ -1,0 +1,6 @@
+# @install: lix --silent download "https://github.com/kevinresol/archive/archive/be767d1eccee05b9d80f05d3d040264ba4ca6e6e.tar.gz" into archive/0.0.0/github/be767d1eccee05b9d80f05d3d040264ba4ca6e6e
+-D archive=0.0.0
+-cp ${HAXESHIM_LIBCACHE}/archive/0.0.0/github/be767d1eccee05b9d80f05d3d040264ba4ca6e6e/src
+
+-lib tink_io
+-lib format

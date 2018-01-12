@@ -2,11 +2,15 @@
 -cp test
 -lib format
 -lib xml-writer
+-lib archive
+-lib hxnodejs
 
 --each
 -main Spreadsheet
--neko bin/spreadsheet.n
+# -neko bin/spreadsheet.n
+-js bin/spreadsheet.js
 
---next
--main Wordprocessing
--neko bin/wordprocessing.n
+# --next
+# -main Wordprocessing
+# -neko bin/wordprocessing.n
+# -js bin/wordprocessing.js

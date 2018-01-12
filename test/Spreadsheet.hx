@@ -44,10 +44,17 @@ class Spreadsheet
 		fill.patternFill.type = PFSolid(0xffff0000);
 		ws.getCell(4, 5).format.fill = fill;
 		
-		var f = File.write('output.xlsx', true);
-		var w = new Writer(f);
-		w.write(wb);
-		f.close();
+		var w = new Writer(new archive.zip.NodeZip());
+		w.write(wb).pipeTo(tink.io.Sink.ofNodeStream('name', js.node.Fs.createWriteStream('out_node.xlsx')))
+			.handle(function(o) {
+				trace(o);
+				Sys.exit(0);
+			});
+		
+		// var f = File.write('output.xlsx', true);
+		// var w = new Writer(f);
+		// w.write(wb);
+		// f.close();
 	}
 	
 }
