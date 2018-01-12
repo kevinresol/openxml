@@ -2,18 +2,15 @@ package;
 
 import openxml.wordprocessing.Document;
 import openxml.wordprocessing.Writer;
-import sys.io.File;
 
 /**
  * ...
  * @author Kevin
  */
 
-class Wordprocessing 
-{
+class Wordprocessing {
 	
-	static function main() 
-	{
+	static function main() {
 		var doc = new Document();
 		doc.body.addParagraph("My paragraph.");
 		
