@@ -8,7 +8,7 @@
 	"classPath": "src",
 	"releasenote": "Alpha",
 	"dependencies": {
-		"format": "",
-		"xml-writer": ""
+		"xml-writer": "",
+		"archive": ""
 	}
 }

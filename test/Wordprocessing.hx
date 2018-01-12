@@ -21,5 +21,4 @@ class Wordprocessing {
 				Sys.exit(0);
 			});
 	}
-	
 }

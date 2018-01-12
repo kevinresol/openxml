@@ -1,8 +1,5 @@
--cp src
 -cp test
--lib format
--lib xml-writer
--lib archive
+-lib openxml
 -lib hxnodejs
 
 --each
