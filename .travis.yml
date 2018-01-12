@@ -28,6 +28,7 @@ install:
   - yes | sudo certmgr -ssl -m https://nugetgallery.blob.core.windows.net
   - yes | sudo certmgr -ssl -m https://nuget.org
   - yarn
+  - haxelib install hxcs
   
 before_script:
   - export HXCS_PATH=$(haxelib path hxcs | head -n 1)

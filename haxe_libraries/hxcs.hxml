@@ -1,4 +1,0 @@
-# @run: haxelib run-dir hxcs ${HAXESHIM_LIBCACHE}/hxcs/3.4.0/haxelib
-# @install: lix --silent download "haxelib:hxcs#3.4.0" into hxcs/3.4.0/haxelib
--D hxcs=3.4.0
--cp ${HAXESHIM_LIBCACHE}/hxcs/3.4.0/haxelib/
