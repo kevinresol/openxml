@@ -6,6 +6,7 @@
     "postinstall": "lix download"
   },
   "dependencies": {
+    "archiver": "^2.1.1",
     "haxe-travix": "^0.10.2",
     "haxeshim": "^0.12.2",
     "lix.pm": "^0.14.0"
