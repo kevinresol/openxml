@@ -1,22 +1,22 @@
 package;
 
-import haxe.unit.TestRunner;
+import tink.unit.*;
+import tink.testrunner.*;
 
 class RunTests {
 
 	static function main() {
 		
-		var runner = new TestRunner();
-		runner.add(new TestWordprocessing());
-		runner.add(new TestSpreadsheet());
-		
-		travix.Logger.exit(runner.run() ? 0 : 500);
+		Runner.run(TestBatch.make([
+			new TestSpreadsheet(),
+		])).handle(Runner.exit);
 	}
 	
 	public static function runValidator(type:String, path:String) {
+		trace(Sys.getCwd());
 		return switch Sys.systemName() {
-			case 'Windows': Sys.command('"bin/validator/bin/Validator.exe"', ['wordprocessing', path]);
-			default: Sys.command('mono', ['"bin/validator/bin/Validator.exe"', 'wordprocessing', path]);
+			case 'Windows': Sys.command('"./bin/validator/bin/Validator.exe"', [type, path]);
+			default: Sys.command('mono', ['./bin/validator/bin/Validator.exe', type, path]);
 		}
 	}
 	

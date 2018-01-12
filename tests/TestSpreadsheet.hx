@@ -1,14 +1,14 @@
 package;
 
-import haxe.unit.TestCase;
 import openxml.spreadsheet.style.Font;
 import openxml.spreadsheet.Workbook;
 import openxml.spreadsheet.Writer;
-import sys.io.File;
 
-class TestSpreadsheet extends TestCase {
+@:asserts
+class TestSpreadsheet {
+	public function new() {}
 	
-	function testOutput() {
+	public function testOutput() {
 		var wb = new Workbook();
 		var ws = wb.addWorksheet('SheetA');
 		ws.getCell(1, 1).content = CString("A string value");
@@ -38,13 +38,16 @@ class TestSpreadsheet extends TestCase {
 		fill.patternFill.type = PFSolid(0xffff0000);
 		ws.getCell(4, 5).format.fill = fill;
 		
-		var path = 'bin/output.xlsx';
-		var f = File.write(path, true);
-		var w = new Writer(f);
-		w.write(wb);
-		f.close();
 		
-		assertEquals(0, RunTests.runValidator('spreadsheet', path));
+		var w = new Writer(new archive.zip.NodeZip());
+		var path = 'bin/out_node.xlsx';
+		w.write(wb).pipeTo(tink.io.Sink.ofNodeStream('name', js.node.Fs.createWriteStream(path)))
+			.handle(function(o) {
+				asserts.assert(RunTests.runValidator('spreadsheet', path) == 0);
+				asserts.done();
+			});
+		
+		return asserts;
 	}
 	
 }

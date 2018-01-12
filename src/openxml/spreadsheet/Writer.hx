@@ -19,6 +19,7 @@ using tink.CoreApi;
  */
 class Writer {
 	var zip:Zip;
+	
 	public function new(zip) {
 		this.zip = zip;
 	}
