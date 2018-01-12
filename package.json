@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "haxelib": "haxelib",
+    "haxe": "haxe",
+    "travix": "travix",
+    "postinstall": "lix download"
+  },
+  "dependencies": {
+    "haxe-travix": "^0.10.2",
+    "haxeshim": "^0.12.2",
+    "lix.pm": "^0.14.0"
+  }
+}
